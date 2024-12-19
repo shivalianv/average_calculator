@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
-
 
 class CustomTextFormField extends StatelessWidget {
   TextEditingController? controller;
@@ -13,6 +13,9 @@ class CustomTextFormField extends StatelessWidget {
   String? errorMessage;
   bool obscureText = false;
   FocusNode focusNode;
+  TextInputType keyboardType;
+  bool autofocus = false;
+  Function(String)? onchange;
 
   CustomTextFormField({
     super.key,
@@ -22,38 +25,53 @@ class CustomTextFormField extends StatelessWidget {
     this.hintText,
     this.onClick,
     this.errorMessage,
-    required this.focusNode,
+    this.onchange,
     this.obscureText = false,
-   
-
+    this.autofocus = false,
+    required this.focusNode,
+    required this.keyboardType,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: 47,
-      child: TextFormField(textAlignVertical: TextAlignVertical.center,
-
-        style:  TextStyle(color:  AppColors.primaryColorDark2,fontSize: 15,),
-        strutStyle:  StrutStyle(),
+    return Container(
+      height: 47,
+      child: TextFormField(
+        textAlignVertical: TextAlignVertical.center,
+        style: TextStyle(
+          color: AppColors.primaryColorDark2,
+          fontSize: 15,
+        ),
+        strutStyle: StrutStyle(),
+        textAlign: TextAlign.center,
         controller: controller,
-        focusNode: FocusNode(),
+        focusNode: focusNode,
+        autofocus: autofocus,
         textInputAction: TextInputAction.next,
+        keyboardType: keyboardType,
+        onChanged: onchange,
         decoration: InputDecoration(
           hintText: hintText,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(5.0),
-            ),
-            borderSide: BorderSide(color: AppColors.primaryColorDark2),
-          ),
-          border:  OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(5.0),
-            ),
-            borderSide: BorderSide(color:  AppColors.primaryColorDark2),
-          ),
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+
+          // enabledBorder: OutlineInputBorder(
+          //   borderRadius: const BorderRadius.all(
+          //     Radius.circular(5.0),
+          //   ),
+          //   borderSide: BorderSide(color: AppColors.primaryColorDark2),
+          // ),
+          // border:  OutlineInputBorder(
+          //   borderRadius: BorderRadius.all(
+          //     Radius.circular(5.0),
+          //   ),
+          //   borderSide: BorderSide(color:  AppColors.primaryColorDark2),
+          // ),
           labelText: labelText,
-          suffixIcon: IconButton(onPressed: onClick, icon: Icon(icon, color: AppColors.primaryColorDark2)),
+          prefixIcon: IconButton(
+            iconSize: 15,
+              onPressed: onClick,
+              icon: Icon(icon, color: AppColors.primaryColorDark2)),
         ),
         obscureText: obscureText,
         validator: (value) {
@@ -66,7 +84,6 @@ class CustomTextFormField extends StatelessWidget {
     );
   }
 }
-
 
 class CustomButton extends StatelessWidget {
   final bool isLoading;
@@ -89,22 +106,14 @@ class CustomButton extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          gradient: LinearGradient(
-            stops: [0.002, 0.7, 0.9],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.primaryGrediantColor1,
-              AppColors.primaryGrediantColor2,
-              AppColors.primaryGrediantColor2,
-            ],
-          ),
+          color: AppColors.primaryColor
+       
         ),
         child: Center(
           child: isLoading
               ? CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColors.primaryColor),
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
                 )
               : Text(
                   text,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +13,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryBackgroundColor,
       appBar: AppBar(
         title: Text("Home Page"),
         backgroundColor: Colors.white,
@@ -26,7 +28,6 @@ class _HomePageState extends State<HomePage> {
                 text: 'Stock Average calculator',
                 onPressed: () {
                   Navigator.of(context).pushNamed('/Stock_Average_Calculator');
-                  print('next screen-----');
                 },
                 isLoading: false,
               ),
@@ -34,16 +35,30 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
               CustomButton(
-                text: 'Mutual Fund',
-                onPressed: () {},
+                text: 'Mutual Fund Return',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/Mutual_Fund_Return');
+                },
                 isLoading: false,
               ),
               SizedBox(
                 height: 20,
               ),
               CustomButton(
-                text: 'SPI',
-                onPressed: () {},
+                text: 'SIP',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/Systemetic_Investment');
+                },
+                isLoading: false,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                text: 'Equity Margin calculator',
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/Equity_Margin_calculator');
+                },
                 isLoading: false,
               )
             ],

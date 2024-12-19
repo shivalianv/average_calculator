@@ -11,171 +11,363 @@ class Stock_Average_Calculator extends StatefulWidget {
 }
 
 class _Stock_Average_CalculatorState extends State<Stock_Average_Calculator> {
-  final TextEditingController _BuyPriceController1 = TextEditingController();
-  final TextEditingController _QuantiyController1 = TextEditingController();
-  final TextEditingController _BuyPriceController2 = TextEditingController();
-  final TextEditingController _QuantiyController2 = TextEditingController();
+  final TextEditingController BuyPriceController1 = TextEditingController();
+  final TextEditingController QuantiyController1 = TextEditingController();
+  final TextEditingController BuyPriceController2 = TextEditingController();
+  final TextEditingController QuantiyController2 = TextEditingController();
 
-  FocusNode _focusNode1 = FocusNode();
-  FocusNode _focusNode2 = FocusNode();
-  FocusNode _focusNode3 = FocusNode();
-  FocusNode _focusNode4 = FocusNode();
-
+  final FocusNode focusNode1 = FocusNode();
+  final FocusNode focusNode2 = FocusNode();
+  final FocusNode focusNode3 = FocusNode();
+  final FocusNode focusNode4 = FocusNode();
 
   double TotalAmount = 0.0;
-  int TotalQuantity = 0; //totalshare
-  int roundAveragePrice = 0;
-  int roundTotalAmount = 0;
+  int TotalQuantity = 00;
+  double roundAveragePrice = 0.0;
+  double roundTotalAmount = 0.0;
+
+  @override
+  void initState() {
+    BuyPriceController1.addListener(calculateAverage);
+    QuantiyController1.addListener(calculateAverage);
+    BuyPriceController2.addListener(calculateAverage);
+    QuantiyController2.addListener(calculateAverage);
+    calculateAverage();
+    super.initState();
+  }
 
   void calculateAverage() {
-
-    double buyPrice1 = double.tryParse(_BuyPriceController1.text) ?? 0.0;
-    int quantity1 = int.tryParse(_QuantiyController1.text) ?? 0;
-    double buyPrice2 = double.tryParse(_BuyPriceController2.text) ?? 0.0;
-    int quantity2 = int.tryParse(_QuantiyController2.text) ?? 0;
+    double buyPrice1 = double.tryParse(BuyPriceController1.text) ?? 0.0;
+    int quantity1 = int.tryParse(QuantiyController1.text) ?? 00;
+    double buyPrice2 = double.tryParse(BuyPriceController2.text) ?? 0.0;
+    int quantity2 = int.tryParse(QuantiyController2.text) ?? 00;
 
     TotalAmount = buyPrice1 * quantity1 + buyPrice2 * quantity2;
     TotalQuantity = quantity1 + quantity2;
-    double Average_Price = TotalAmount / TotalQuantity;
-    roundAveragePrice = Average_Price.round(); //convert double to int vlaue
-    roundTotalAmount = TotalAmount.round(); //convert double to int vlaue
 
-    setState(() {
-      
-    });
-    // print("total share:-----$TotalQuantity");
-    // print("total Amount-----------$TotalAmount");
-    // print("average price:-----$roundAveragePrice");
-    // print("round total Amount price:-----$roundTotalAmount");
+    if (TotalQuantity > 0) {
+      double Average_Price = TotalAmount / TotalQuantity;
+
+      if (Average_Price.isNaN || Average_Price.isInfinite) {
+        roundAveragePrice = 0.0;
+      } else {
+        roundAveragePrice = double.parse(Average_Price.toStringAsFixed(0));
+      }
+      if (roundTotalAmount.isNaN || roundTotalAmount.isInfinite) {
+        roundTotalAmount = 0.0;
+      } else {
+        roundTotalAmount = double.parse(TotalAmount.toStringAsFixed(0));
+      }
+    } else {
+      roundAveragePrice = 0.0;
+      roundTotalAmount = 0.0;
+    }
+    setState(() {});
   }
 
-  void dispose(){
-  _focusNode1.dispose();
-  _focusNode2.dispose();
-  _focusNode3.dispose();
-  _focusNode4.dispose();
-  super.dispose();
+  @override
+  void dispose() {
+    focusNode1.dispose();
+    focusNode2.dispose();
+    focusNode3.dispose();
+    focusNode4.dispose();
+    BuyPriceController1.dispose();
+    QuantiyController1.dispose();
+    BuyPriceController2.dispose();
+    QuantiyController2.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Stock Average calculator",
+        backgroundColor: AppColors.primaryBackgroundColor,
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: AppColors.primaryColorDark1,
+              )),
+          title: Text(
+            "Stock Average calculator",
+            style: TextStyle(
+              color: AppColors.primaryColorDark1,
+            ),
+          ),
+          backgroundColor: AppColors.primaryBackgroundColor,
         ),
-        backgroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
+        body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Share 1:"),
                 Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(0.10),
-                      border: Border.all(
-                          width: 0.2, color: AppColors.primaryColor3)),
+                    border: Border.all(
+                        color:AppColors.primaryColorLight3),
+                    borderRadius: BorderRadius.circular(10),
+                   
+                   
+                  ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Buy Price"),
-                        CustomTextFormField(
-                          focusNode:_focusNode1,
-                          hintText: 'Enter Buy Price',
-                          labelText: 'Buy Price',
-                          controller: _BuyPriceController1,
-                          icon: Icons.currency_rupee,
-                          errorMessage: 'Buy Price',
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Buy Price:",
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark1,
+                                  fontSize: 15),
+                            ),
+                            Container(
+                              width: 150,
+                              decoration: BoxDecoration(
+                                                    border: Border.all(color: AppColors.primaryColorLight3),
+
+                                  borderRadius: BorderRadius.circular(10),
+                                 ),
+                              child: CustomTextFormField(
+                                autofocus: true,
+                                keyboardType: TextInputType.number,
+                                focusNode: focusNode1,
+                                controller: BuyPriceController1,
+                                icon: Icons.currency_rupee,
+                                errorMessage: 'Buy Price',
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 20),
-                        Text("Quantity"),
-                        CustomTextFormField(
-                          focusNode:_focusNode2,
-                          hintText: 'Enter Quantity',
-                          labelText: 'Quantity',
-                          controller: _QuantiyController1,
-                          icon: Icons.currency_rupee,
-                          errorMessage: 'Quantity',
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Quantity:",
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark1,
+                                  fontSize: 15),
+                            ),
+                            Container(
+                              width: 150,
+                              decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.primaryColorLight3),
+                                  borderRadius: BorderRadius.circular(10),
+                                 ),
+                              child: CustomTextFormField(
+                                autofocus: true,
+                                keyboardType: TextInputType.number,
+                                focusNode: focusNode2,
+                                controller: QuantiyController1,
+                                icon: Icons.currency_rupee,
+                                errorMessage: 'Quantity',
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                Text("Share 2:"),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(0.10),
-                      border: Border.all(
-                          width: 0.2, color: AppColors.primaryColor3)),
+                    border: Border.all(
+                      color: AppColors.primaryColorLight3
+                      ),
+                    borderRadius: BorderRadius.circular(10),
+                    
+                  ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Buy Price"),
-                        CustomTextFormField(
-                          focusNode: _focusNode3,
-                          hintText: 'Enter Buy Price',
-                          labelText: 'Buy Price',
-                          controller: _BuyPriceController2,
-                          icon: Icons.currency_rupee,
-                          errorMessage: 'Buy Price',
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Buy Price:",
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark1,
+                                  fontSize: 15),
+                            ),
+                            Container(
+                              width: 150,
+                              decoration: BoxDecoration(
+                              
+                    border: Border.all(color: AppColors.primaryColorLight3),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: CustomTextFormField(
+                                autofocus: true,
+                                keyboardType: TextInputType.number,
+                                focusNode: focusNode3,
+                                controller: BuyPriceController2,
+                                icon: Icons.currency_rupee,
+                                errorMessage: 'Buy Price',
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 20),
-                        Text("Quantity"),
-                        CustomTextFormField(     
-                          focusNode: _focusNode4,                     
-                          hintText: 'Enter Quantity',
-                          labelText: 'Quantity',
-                          controller: _QuantiyController2,
-                          icon: Icons.currency_rupee,
-                          errorMessage: 'Quantity',                          
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Quantity",
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark1,
+                                  fontSize: 15),
+                            ),
+                            Container(
+                              width: 150,
+                              decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.primaryColorLight3),
+                                  borderRadius: BorderRadius.circular(10),
+                                  ),
+                              child: CustomTextFormField(
+                                autofocus: true,
+                                keyboardType: TextInputType.number,
+                                focusNode: focusNode4,
+                                controller: QuantiyController2,
+                                icon: Icons.currency_rupee,
+                                errorMessage: 'Quantity',
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                CustomButton(
-                    isLoading: false,
-                    text: 'Calculate Average',
-                    onPressed: () {
-                      calculateAverage();
-                    }),
-                Divider(
-                  thickness: 1,
-                  color: AppColors.primaryColorDark2,
+                SizedBox(
+                  height: 10,
                 ),
-                if (TotalQuantity > 0)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Total Quantity: $TotalQuantity',
-                    style: TextStyle(fontSize: 20),
+                Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryBackgroundColor,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: AppColors.primaryColorLight3),
+                  
                   ),
-                  Text(
-                    'Total Amount: ${roundTotalAmount}',
-                    style: TextStyle(fontSize: 20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total Share:',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.primaryColorDark1,
+                              ),
+                            ),
+                            Text(
+                              '${(TotalQuantity ?? 0.0).toStringAsFixed(0)}  ₹',
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark, fontSize: 15),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total Amount:',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.primaryColorDark1,
+                              ),
+                            ),
+                            Text(
+                              '${(roundTotalAmount ?? 0.0).toStringAsFixed(0)} ₹',
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark, fontSize: 15),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Average Price:',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.primaryColorDark1,
+                              ),
+                            ),
+                            Text(
+                              '${(roundAveragePrice ?? 0.0).toStringAsFixed(0)} ₹',
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark, fontSize: 15),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    'Average Price: ${roundAveragePrice}',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
-              ),
-             
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                        width: 150,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.primaryColorLight3),
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.primaryBackgroundColor),
+                        child: TextButton(
+                            clipBehavior: Clip.antiAlias,
+                            onPressed: () {
+                              calculateAverage();
+                            },
+                            child: Text(
+                              "Calculate",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ))),
+                    Container(
+                      width: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(0.10),
+                      ),
+                      child: CustomButton(
+                          isLoading: false,
+                          text: 'Cancel',
+                          onPressed: () {
+                            BuyPriceController1.clear();
+                            QuantiyController1.clear();
+                            BuyPriceController2.clear();
+                            QuantiyController2.clear();
+                          }),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

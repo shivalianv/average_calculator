@@ -12,27 +12,27 @@
 // }
 
 // class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
-//   final TextEditingController searchController = TextEditingController();
+//   final TextEditingController SearchController = TextEditingController();
 
-//   final TextEditingController Order_PriceController = TextEditingController();
-//   final TextEditingController Share_valueController = TextEditingController();
+//   final TextEditingController OrderPriceController = TextEditingController();
+//   final TextEditingController ShareValueController = TextEditingController();
 
 //   final FocusNode focusNode1 = FocusNode();
 //   final FocusNode focusNode2 = FocusNode();
 
 //   @override
 //   void initState() {
-//     filteredCompanies = companies;
+//     FilteredCompaniesList = companies;
 
-//     searchController.addListener(print_selectedcompany);
-//     calculate_Order();
+//     SearchController.addListener(SelectedCompany1);
+//     CalculateOrder();
 //     Add_company();
 //     super.initState();
 //   }
 
-//   List<String> filteredCompanies = [];
+//   List<String> FilteredCompaniesList = [];
 
-//   Map<String, double> Company_BSEvalue = {
+//   Map<String, double> CompanyBSEvalue = {
 //     "Swiggy Ltd.": 594.80,
 //     "Enviro infra Engineers Ltd.": 380.50,
 //     "Tata Motors Ltd": 784.70
@@ -49,112 +49,112 @@
 //     "Tata Motors Ltd"
 //   ];
 
-//   List<Add_newCompany> addmultiple_companylist = [];
+//   List<Add_newCompany> AddmultipleMompanylist = [];
 //   String selected_company = '';
-//   String selected_buysell_list = '';
+//   String SelectedBuysellList = '';
 
-//   String? selected_buysellvalue = 'BUY';
-//   String? selected_exchangevalue = 'NSE';
+//   String? SelectedBuysellvalue = 'BUY';
+//   String? SelectedExchangevalue = 'NSE';
 
-//   List<String> buysell_list = ['BUY', 'SELL']; //Option
-//   List<String> exchange_list = ['NSE', 'BSE']; //Option2
+//   List<String> BuysellList = ['BUY', 'SELL']; //Option
+//   List<String> ExchangeList = ['NSE', 'BSE']; //Option2
 
-//   double Margin_delivery = 0.0;
-//   double Margin_intraday = 0.0;
+//   double MarginDelivery = 0.0;
+//   double MarginIntraday = 0.0;
 
-//   void print_selectedcompany() {
+//   void SelectedCompany1() {
 //     //
 //     double companyvalue = 0.0;
-//     String selectedCompany = searchController.text.trim();
+//     String selectedCompany = SearchController.text.trim();
 
-//     if (selected_exchangevalue == 'NSE') {
+//     if (SelectedExchangevalue == 'NSE') {
 //       if (Company_NSEvalue.containsKey(selectedCompany)) {
 //         companyvalue = Company_NSEvalue[selectedCompany]!;
 //       } else {
 //         print("Company not found: $selectedCompany");
 //       }
 //     } else {
-//       if (Company_BSEvalue.containsKey(selectedCompany)) {
-//         companyvalue = Company_BSEvalue[selectedCompany]!;
+//       if (CompanyBSEvalue.containsKey(selectedCompany)) {
+//         companyvalue = CompanyBSEvalue[selectedCompany]!;
 //       } else {
 //         print("Company not found: $selectedCompany");
 //       }
 //     }
 //     if (companyvalue != 0.0) {
-//       Order_PriceController.text = companyvalue.toStringAsFixed(2);
+//       OrderPriceController.text = companyvalue.toStringAsFixed(2);
 //     } else {
-//       Order_PriceController.text = '';
+//       OrderPriceController.text = '';
 //     }
 //     setState(() {});
 //   }
 
-//   void calculate_Order() {
+//   void CalculateOrder() {
 //     //
-//     String order_value = Order_PriceController.text;
-//     String share_v = Share_valueController.text;
+//     String Ordervalue = OrderPriceController.text;
+//     String Sharevalue = ShareValueController.text;
 
 //     double parseToDouble(String input1) {
 //       String cleanedInput1 = input1.replaceAll(RegExp(r'[^0-9.]'), '');
 //       return double.tryParse(cleanedInput1) ?? 0.0;
 //     }
 
-//     double Order_Price = parseToDouble(order_value);
-//     double Share_value = parseToDouble(share_v);
+//     double OrderPrice = parseToDouble(Ordervalue);
+//     double Sharevaluealue = parseToDouble(Sharevalue);
 
-//     double round_delivery = Order_Price * Share_value;
-//     Margin_delivery = double.parse(round_delivery.toStringAsFixed(3));
+//     double RoundDelivery = OrderPrice * Sharevaluealue;
+//     MarginDelivery = double.parse(RoundDelivery.toStringAsFixed(3));
 
-//     double round_intraday = Order_Price * Share_value * (20 / 100);
+//     double round_intraday = OrderPrice * Sharevaluealue * (20 / 100);
 
-//     Margin_intraday = double.parse(round_intraday.toStringAsFixed(2));
+//     MarginIntraday = double.parse(round_intraday.toStringAsFixed(2));
 
-//     if (selected_buysellvalue == 'BUY') {
-//       selected_buysell_list = Margin_delivery.toStringAsFixed(2);
+//     if (SelectedBuysellvalue == 'BUY') {
+//       SelectedBuysellList = MarginDelivery.toStringAsFixed(2);
 //     } else {
-//       selected_buysell_list = '';
-//       Margin_delivery = 0.0;
+//       SelectedBuysellList = '';
+//       MarginDelivery = 0.0;
 //     }
 
 //     setState(() {});
 //   }
 
-//   void remove_company(int index) {
+//   void RemoveCompany(int index) {
 //     setState(() {
-//       addmultiple_companylist.removeAt(index);
-//       if (selected_company == addmultiple_companylist[index]) {
+//       AddmultipleMompanylist.removeAt(index);
+//       if (selected_company == AddmultipleMompanylist[index]) {
 //         selected_company = '';
 //       }
 //     });
 //   }
 
-//   // List<Widget> addmultiple_companylist = [];
+//   // List<Widget> AddmultipleMompanylist = [];
 
 //   void Add_company() {
 //     setState(() {
-//       addmultiple_companylist.add(Add_newCompany(
+//       AddmultipleMompanylist.add(Add_newCompany(
 //         textfiledserch: TextFieldSearch(
 //           decoration: InputDecoration(border: InputBorder.none),
-//           initialList: filteredCompanies,
-//           controller: searchController,
+//           initialList: FilteredCompaniesList,
+//           controller: SearchController,
 //           label: 'Search Company',
 //           textStyle:
 //               TextStyle(color: AppColors.primaryColorDark1, fontSize: 14),
 //         ),
-//         value1: selected_buysellvalue,
-//         items1: buysell_list.toSet().toList(),
-//         value2: selected_exchangevalue,
-//         items2: exchange_list.toSet().toList(),
+//         value1: SelectedBuysellvalue,
+//         items1: BuysellList.toSet().toList(),
+//         value2: SelectedExchangevalue,
+//         items2: ExchangeList.toSet().toList(),
 //         onchanged1: (newvalue) {
 //           setState(() {
-//             selected_buysellvalue = newvalue ?? "";
-//             calculate_Order();
+//             SelectedBuysellvalue = newvalue ?? "";
+//             CalculateOrder();
 //           });
 //         },
 //         onchanged2: (newvalue) {
 //           setState(() {
-//             selected_buysellvalue = newvalue ?? "";
-//             // if (selected_buysellvalue != null) {
-//             //   selected_buysellvalue!;
+//             SelectedBuysellvalue = newvalue ?? "";
+//             // if (SelectedBuysellvalue != null) {
+//             //   SelectedBuysellvalue!;
 //             // }
 //           });
 //         },
@@ -162,12 +162,12 @@
 //           autofocus: true,
 //           keyboardType: TextInputType.number,
 //           focusNode: focusNode1,
-//           controller: Order_PriceController,
+//           controller: OrderPriceController,
 //           icon: Icons.currency_rupee,
 //           errorMessage: 'Order Price',
 //           onchange: (value) {
 //             setState(() {
-//               calculate_Order();
+//               CalculateOrder();
 //             });
 //           },
 //         ),
@@ -175,17 +175,17 @@
 //           autofocus: true,
 //           keyboardType: TextInputType.number,
 //           focusNode: focusNode2,
-//           controller: Share_valueController,
+//           controller: ShareValueController,
 //           errorMessage: 'Invalid value Share',
 //           onchange: (value) {
 //             setState(() {
-//               calculate_Order();
+//               CalculateOrder();
 //             });
 //           },
 //         ),
-//         textmargin_delivery:
-//             selected_buysellvalue == "SELL" ? '0.0' : selected_buysell_list,
-//         textmargin_intraday: "$Margin_intraday",
+//         TextMarginDelivery:
+//             SelectedBuysellvalue == "SELL" ? '0.0' : SelectedBuysellList,
+//         TextmarginIntraday: "$MarginIntraday",
 //       ));
 //     });
 //   }
@@ -225,26 +225,26 @@
 //               //   Add_newCompany(
 //               //     textfiledserch: TextFieldSearch(
 //               //       decoration: InputDecoration(border: InputBorder.none),
-//               //       initialList: filteredCompanies,
-//               //       controller: searchController,
+//               //       initialList: FilteredCompaniesList,
+//               //       controller: SearchController,
 //               //       label: 'Search Company',
 //               //       textStyle: TextStyle(
 //               //           color: AppColors.primaryColorDark1, fontSize: 14),
 //               //     ),
-//               //     value1: selected_buysellvalue,
-//               //     items1: buysell_list,
-//               //     value2: selected_exchangevalue,
-//               //     items2: exchange_list,
+//               //     value1: SelectedBuysellvalue,
+//               //     items1: BuysellList,
+//               //     value2: SelectedExchangevalue,
+//               //     items2: ExchangeList,
 //               //     customtextfield1: CustomTextFormField(
 //               //       autofocus: true,
 //               //       keyboardType: TextInputType.number,
 //               //       focusNode: focusNode1,
-//               //       controller: Order_PriceController,
+//               //       controller: OrderPriceController,
 //               //       icon: Icons.currency_rupee,
 //               //       errorMessage: 'Order Price',
 //               //       onchange: (value) {
 //               //         setState(() {
-//               //           calculate_Order();
+//               //           CalculateOrder();
 //               //         });
 //               //       },
 //               //     ),
@@ -252,31 +252,31 @@
 //               //       autofocus: true,
 //               //       keyboardType: TextInputType.number,
 //               //       focusNode: focusNode2,
-//               //       controller: Share_valueController,
+//               //       controller: ShareValueController,
 //               //       errorMessage: 'Invalid value Share',
 //               //       onchange: (value) {
 //               //         setState(() {
-//               //           calculate_Order();
+//               //           CalculateOrder();
 //               //         });
 //               //       },
 //               //     ),
-//               //     textmargin_delivery: selected_buysellvalue == "SELL"
+//               //     TextMarginDelivery: SelectedBuysellvalue == "SELL"
 //               //         ? '0.0'
-//               //         : selected_buysell_list,
-//               //     textmargin_intraday: "$Margin_intraday",
+//               //         : SelectedBuysellList,
+//               //     TextmarginIntraday: "$MarginIntraday",
 //               //     onchanged1: (newvalue) {
 //               //       setState(() {
-//               //         selected_buysellvalue != newvalue;
-//               //         if (selected_buysellvalue != null) {
-//               //           selected_buysellvalue!;
+//               //         SelectedBuysellvalue != newvalue;
+//               //         if (SelectedBuysellvalue != null) {
+//               //           SelectedBuysellvalue!;
 //               //         }
 //               //       });
 //               //     },
 //               //     onchanged2: (newvalue) {
 //               //       setState(() {
-//               //         selected_buysellvalue != newvalue;
-//               //         if (selected_buysellvalue != null) {
-//               //           selected_buysellvalue!;
+//               //         SelectedBuysellvalue != newvalue;
+//               //         if (SelectedBuysellvalue != null) {
+//               //           SelectedBuysellvalue!;
 //               //         }
 //               //       });
 //               //     },
@@ -287,9 +287,9 @@
 //               Container(
 //                 height: 450,
 //                 child: ListView.builder(
-//                     itemCount: addmultiple_companylist.length,
+//                     itemCount: AddmultipleMompanylist.length,
 //                     itemBuilder: (context, index) {
-//                       final newcompanyadd = addmultiple_companylist[index];
+//                       final newcompanyadd = AddmultipleMompanylist[index];
 //                       final defitem1 = newcompanyadd.items1.toSet().toList();
 //                       final defitem2 = newcompanyadd.items2.toSet().toList();
 
@@ -300,7 +300,7 @@
 //                               ? defitem1[0]
 //                               : null;
 //                       final value2 = defitem2.contains(
-//                               newcompanyadd.value1) //selected_exchangevalue
+//                               newcompanyadd.value1) //SelectedExchangevalue
 //                           ? newcompanyadd.value1
 //                           : defitem2.isNotEmpty
 //                               ? defitem2[0]
@@ -314,19 +314,19 @@
 //                         value2: newcompanyadd.value2,
 //                         onchanged1: (newvalue) {
 //                           setState(() {
-//                             selected_buysellvalue = newvalue ?? "";
-//                             newcompanyadd.value1 == selected_buysellvalue;
-//                             calculate_Order();
+//                             SelectedBuysellvalue = newvalue ?? "";
+//                             newcompanyadd.value1 == SelectedBuysellvalue;
+//                             CalculateOrder();
 //                           });
 //                         },
 //                         onchanged2: (newvalue) {
 //                           setState(() {
-//                             selected_exchangevalue = newvalue ?? "";
-//                             calculate_Order();
+//                             SelectedExchangevalue = newvalue ?? "";
+//                             CalculateOrder();
 //                           });
 //                         },
-//                         textmargin_intraday: newcompanyadd.textmargin_intraday,
-//                         textmargin_delivery: newcompanyadd.textmargin_delivery,
+//                         TextmarginIntraday: newcompanyadd.TextmarginIntraday,
+//                         TextMarginDelivery: newcompanyadd.TextMarginDelivery,
 //                         customtextfield1: newcompanyadd.customtextfield1,
 //                         customtextfield2: newcompanyadd.customtextfield2,
 //                       );
@@ -361,7 +361,7 @@
 //                           text: 'Remove ',
 //                           onPressed: () {
 //                             setState(() {
-//                               remove_company;
+//                               RemoveCompany;
 //                             });
 //                           }),
 //                     ),
@@ -403,7 +403,7 @@
 //               //                     color: AppColors.primaryColorLight2),
 //               //                 borderRadius: BorderRadius.circular(10),
 //               //               ),
-//               //               child: Center(child: Text("$Margin_delivery")),
+//               //               child: Center(child: Text("$MarginDelivery")),
 //               //             ),
 //               //           ],
 //               //         ),
@@ -427,7 +427,7 @@
 //               //                       color: AppColors.primaryColorLight2),
 //               //                   borderRadius: BorderRadius.circular(10),
 //               //                 ),
-//               //                 child: Center(child: Text("$Margin_intraday"))),
+//               //                 child: Center(child: Text("$MarginIntraday"))),
 //               //           ],
 //               //         ),
 //               //       ],
@@ -451,7 +451,7 @@
 //                           clipBehavior: Clip.antiAlias,
 //                           onPressed: () {
 //                             setState(() {
-//                               calculate_Order();
+//                               CalculateOrder();
 //                             });
 //                           },
 //                           child: Text(
@@ -467,10 +467,10 @@
 //                         isLoading: false,
 //                         text: 'Cancel',
 //                         onPressed: () {
-//                           Order_PriceController.clear();
-//                           Share_valueController.clear();
-//                           // Margin_delivery = 0.0;
-//                           // Margin_intraday = 0.0;
+//                           OrderPriceController.clear();
+//                           ShareValueController.clear();
+//                           // MarginDelivery = 0.0;
+//                           // MarginIntraday = 0.0;
 //                         }),
 //                   ),
 //                 ],
@@ -492,8 +492,8 @@
 //   final List<String> items2;
 //   final dynamic value1;
 //   final dynamic value2;
-//   final String textmargin_delivery;
-//   final String textmargin_intraday;
+//   final String TextMarginDelivery;
+//   final String TextmarginIntraday;
 
 //   Function(dynamic)? onchanged1;
 //   Function(dynamic)? onchanged2;
@@ -502,8 +502,8 @@
 //     super.key,
 //     required this.textfiledserch,
 //     required this.value2,
-//     required this.textmargin_delivery,
-//     required this.textmargin_intraday,
+//     required this.TextMarginDelivery,
+//     required this.TextmarginIntraday,
 //     required this.items1,
 //     required this.value1,
 //     required this.onchanged1,
@@ -518,29 +518,29 @@
 // }
 
 // class _Add_newCompanyState extends State<Add_newCompany> {
-//   final TextEditingController searchController = TextEditingController();
+//   final TextEditingController SearchController = TextEditingController();
 
 //   List<String> companies = [
 //     "Swiggy Ltd.",
 //     "Enviro infra Engineers Ltd.",
 //     "Tata Motors Ltd"
 //   ];
-//   String? selected_buysellvalue = 'BUY';
-//   String? selected_exchangevalue = 'NSE';
+//   String? SelectedBuysellvalue = 'BUY';
+//   String? SelectedExchangevalue = 'NSE';
 
-//   List<String> filteredCompanies = [];
+//   List<String> FilteredCompaniesList = [];
 
 //   void filterCompanies(String query) {
 //     setState(() {
-//       filteredCompanies = companies
+//       FilteredCompaniesList = companies
 //           .where(
 //               (company) => company.toLowerCase().contains(query.toLowerCase()))
 //           .toList();
 //     });
 //   }
 
-//     final TextEditingController Order_PriceController = TextEditingController();
-//   final TextEditingController Share_valueController = TextEditingController();
+//     final TextEditingController OrderPriceController = TextEditingController();
+//   final TextEditingController ShareValueController = TextEditingController();
 
 //   final FocusNode focusNode1 = FocusNode();
 //   final FocusNode focusNode2 = FocusNode();
@@ -580,7 +580,7 @@
 //               child: GestureDetector(
 //                   onTap: () {
 //                     setState(() {
-//                       filterCompanies(searchController.text);
+//                       filterCompanies(SearchController.text);
 //                     });
 //                   },
 //                   child: widget.textfiledserch),
@@ -621,7 +621,7 @@
 //                         }).toList(),
 //                         onChanged: (newvalue) {
 //                           setState(() {
-//                             selected_buysellvalue != newvalue;
+//                             SelectedBuysellvalue != newvalue;
 //                             if (widget.onchanged1 != null) {
 //                               widget.onchanged1!(newvalue);
 //                             }
@@ -661,18 +661,18 @@
 //                         }).toList(),
 //                         onChanged: (newvalue) {
 //                           setState(() {
-//                             selected_exchangevalue != newvalue;
+//                             SelectedExchangevalue != newvalue;
 //                             if (widget.onchanged2 != null) {
 //                               widget.onchanged2!(newvalue);
 //                             }
 //                           });
 //                           // setState(() {
-//                           //   selected_exchangevalue != newvalue2;
-//                           //   // selected_exchangevalue = newvalue2!;
+//                           //   SelectedExchangevalue != newvalue2;
+//                           //   // SelectedExchangevalue = newvalue2!;
 //                           // });
 
-//                           // print_selectedcompany();
-//                           // calculate_Order();
+//                           // SelectedCompany1();
+//                           // CalculateOrder();
 //                         },
 //                       ),
 //                     ),
@@ -741,7 +741,7 @@
 //                     border: Border.all(color: AppColors.primaryColorLight2),
 //                     borderRadius: BorderRadius.circular(10),
 //                   ),
-//                   child: Center(child: Text(widget.textmargin_delivery ?? "")),
+//                   child: Center(child: Text(widget.TextMarginDelivery ?? "")),
 //                 ),
 //                 SizedBox(
 //                   height: 10,
@@ -758,7 +758,7 @@
 //                     border: Border.all(color: AppColors.primaryColorLight2),
 //                     borderRadius: BorderRadius.circular(10),
 //                   ),
-//                   child: Center(child: Text(widget.textmargin_intraday ?? "")),
+//                   child: Center(child: Text(widget.TextmarginIntraday ?? "")),
 //                 ),
 //               ],
 //             ),
@@ -770,6 +770,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:stock_average_calculator/Screens/EquityMargin_Model.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 import 'package:textfield_search/textfield_search.dart';
@@ -783,30 +784,31 @@ class Equity_Margin_calculator extends StatefulWidget {
 }
 
 class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
-  final TextEditingController searchController = TextEditingController();
-  // TextFieldSearch? searchController1;
+  final TextEditingController SearchController = TextEditingController();
 
-  final TextEditingController Order_PriceController = TextEditingController();
-  final TextEditingController Share_valueController = TextEditingController();
+  // final TextEditingController OrderPriceController = TextEditingController();
+  // final TextEditingController ShareValueController = TextEditingController();
+  List<TextEditingController> OrderPriceController = [];
+  List<TextEditingController> ShareValueController = [];
 
   final FocusNode focusNode1 = FocusNode();
   final FocusNode focusNode2 = FocusNode();
 
   @override
   void initState() {
-     remove_company;
-    filteredCompanies = companies;
+    RemoveCompany;
+    FilteredCompaniesList = companies;
 
-    searchController.addListener(print_selectedcompany);
-    calculate_Order();
+    SearchController.addListener(SelectedCompany1);
+    CalculateOrder();
     Add_company();
-   
+
     super.initState();
   }
 
-  List<String> filteredCompanies = [];
+  List<String> FilteredCompaniesList = [];
 
-  Map<String, double> Company_BSEvalue = {
+  Map<String, double> CompanyBSEvalue = {
     "Swiggy Ltd.": 594.80,
     "Enviro infra Engineers Ltd.": 380.50,
     "Tata Motors Ltd": 784.70
@@ -823,154 +825,179 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
     "Tata Motors Ltd"
   ];
 
-  List<Add_newCompany> addmultiple_companylist = [];
+  List<Add_newCompany> AddmultipleMompanylist = [];
   String selected_company = '';
-  String selected_buysell_list = '';
+  String SelectedBuysellList = '';
 
-  String? selected_buysellvalue = 'BUY';
-  String? selected_exchangevalue = 'NSE';
+  String? SelectedBuysellvalue = 'BUY';
+  String? SelectedExchangevalue = 'NSE';
 
-  List<String> buysell_list = ['BUY', 'SELL']; //Option
-  List<String> exchange_list = ['NSE', 'BSE']; //Option2
+  List<String> BuysellList = ['BUY', 'SELL']; //Option
+  List<String> ExchangeList = ['NSE', 'BSE']; //Option2
 
-  double Margin_delivery = 0.0;
-  double Margin_intraday = 0.0;
+  double MarginDelivery = 0.0;
+  double MarginIntraday = 0.0;
 
-  void print_selectedcompany() {
+  Future<void> SelectedCompany1() async {
     //
     double companyvalue = 0.0;
-    String selectedCompany = searchController.text.trim();
+    String selectedCompany = SearchController.text.trim();
 
-    if (selected_exchangevalue == 'NSE') {
+    if (SelectedExchangevalue == 'NSE') {
       if (Company_NSEvalue.containsKey(selectedCompany)) {
         companyvalue = Company_NSEvalue[selectedCompany]!;
       } else {
         print("Company not found: $selectedCompany");
       }
     } else {
-      if (Company_BSEvalue.containsKey(selectedCompany)) {
-        companyvalue = Company_BSEvalue[selectedCompany]!;
+      if (CompanyBSEvalue.containsKey(selectedCompany)) {
+        companyvalue = CompanyBSEvalue[selectedCompany]!;
       } else {
         print("Company not found: $selectedCompany");
       }
     }
     if (companyvalue != 0.0) {
-      Order_PriceController.text = companyvalue.toStringAsFixed(2);
+      OrderPriceController;
+      // OrderPriceController = companyvalue.toStringAsFixed(2);
     } else {
-      Order_PriceController.text = '';
+      OrderPriceController;
+      // OrderPriceController = '';
     }
     setState(() {});
   }
 
-  void calculate_Order() {
+  Future<void> CalculateOrder() async {
     //
-    String order_value = Order_PriceController.text;
-    String share_v = Share_valueController.text;
+    List<TextEditingController> Ordervalue = OrderPriceController;
+    List<TextEditingController> Sharevalue = ShareValueController;
 
     double parseToDouble(String input1) {
       String cleanedInput1 = input1.replaceAll(RegExp(r'[^0-9.]'), '');
       return double.tryParse(cleanedInput1) ?? 0.0;
     }
 
-    double Order_Price = parseToDouble(order_value);
-    double Share_value = parseToDouble(share_v);
+    double OrderPrice = parseToDouble(Ordervalue.toString());
+    double Sharevaluealue = parseToDouble(Sharevalue.toString());
 
-    double round_delivery = Order_Price * Share_value;
-    Margin_delivery = double.parse(round_delivery.toStringAsFixed(3));
+    double RoundDelivery = OrderPrice * Sharevaluealue;
+    MarginDelivery = double.parse(RoundDelivery.toStringAsFixed(3));
 
-    double round_intraday = Order_Price * Share_value * (20 / 100);
+    double round_intraday = OrderPrice * Sharevaluealue * (20 / 100);
 
-    Margin_intraday = double.parse(round_intraday.toStringAsFixed(2));
+    MarginIntraday = double.parse(round_intraday.toStringAsFixed(2));
 
-    if (selected_buysellvalue == 'BUY') {
-      selected_buysell_list = Margin_delivery.toStringAsFixed(2);
+    if (SelectedBuysellvalue == 'BUY') {
+      SelectedBuysellList = MarginDelivery.toStringAsFixed(2);
     } else {
-      selected_buysell_list = '';
-      Margin_delivery = 0.0;
+      SelectedBuysellList = '';
+      MarginDelivery = 0.0;
     }
 
     setState(() {});
   }
 
- 
+  Future<void> Add_company() async {
+    final TextEditingController OrderPriceController = TextEditingController();
+    final TextEditingController ShareValueController = TextEditingController();
 
-  void Add_company() {
-    setState(() {
-      addmultiple_companylist.add(Add_newCompany(
-        textfiledserch: TextFieldSearch(
-          decoration: InputDecoration(border: InputBorder.none),
-          initialList: filteredCompanies,
-          controller: searchController,
-          label: 'Search Company',
-          textStyle:
-              TextStyle(color: AppColors.primaryColorDark1, fontSize: 14),
-        ),
-        value1: selected_buysellvalue,
-        items1: buysell_list.toSet().toList(),
-        value2: selected_exchangevalue,
-        items2: exchange_list.toSet().toList(),
-        onchanged1: (newvalue) {
+    AddmultipleMompanylist.add(Add_newCompany(
+      textfiledserch: TextFieldSearch(
+        decoration: InputDecoration(border: InputBorder.none),
+        initialList: FilteredCompaniesList,
+        controller: TextEditingController(),
+        // controller: SearchController,
+        label: 'Search Company',
+        textStyle: TextStyle(color: AppColors.primaryColorDark1, fontSize: 14),
+      ),
+      value1: SelectedBuysellvalue,
+      items1: BuysellList.toSet().toList(),
+      value2: SelectedExchangevalue,
+      items2: ExchangeList.toSet().toList(),
+      onchanged1: (newvalue) {
+        setState(() {
+          SelectedBuysellvalue = newvalue ?? "";
+          CalculateOrder();
+        });
+      },
+      onchanged2: (newvalue) {
+        setState(() {
+          SelectedBuysellvalue = newvalue ?? "";
+        });
+      },
+      customtextfield1: CustomTextFormField(
+        autofocus: true,
+        keyboardType: TextInputType.number,
+        focusNode: focusNode1,
+        controller: OrderPriceController,
+        icon: Icons.currency_rupee,
+        errorMessage: 'Order Price',
+        onchange: (value) {
           setState(() {
-            selected_buysellvalue = newvalue ?? "";
-            calculate_Order();
+            CalculateOrder();
           });
         },
-        onchanged2: (newvalue) {
+      ),
+      customtextfield2: CustomTextFormField(
+        autofocus: true,
+        keyboardType: TextInputType.number,
+        focusNode: focusNode2,
+        controller: ShareValueController,
+        errorMessage: 'Invalid value Share',
+        onchange: (value) {
           setState(() {
-            selected_buysellvalue = newvalue ?? "";
+            CalculateOrder();
           });
         },
-        customtextfield1: CustomTextFormField(
-          autofocus: true,
-          keyboardType: TextInputType.number,
-          focusNode: focusNode1,
-          controller: Order_PriceController,
-          icon: Icons.currency_rupee,
-          errorMessage: 'Order Price',
-          onchange: (value) {
-            setState(() {
-              calculate_Order();
-            });
-          },
-        ),
-        customtextfield2: CustomTextFormField(
-          autofocus: true,
-          keyboardType: TextInputType.number,
-          focusNode: focusNode2,
-          controller: Share_valueController,
-          errorMessage: 'Invalid value Share',
-          onchange: (value) {
-            setState(() {
-              calculate_Order();
-            });
-          },
-        ),
-        textmargin_delivery:
-            selected_buysellvalue == "SELL" ? '0.0' : selected_buysell_list,
-        textmargin_intraday: "$Margin_intraday",
-      ));
-    });
+      ),
+      TextMarginDelivery:
+          SelectedBuysellvalue == "SELL" ? '0.0' : SelectedBuysellList,
+      TextmarginIntraday: "$MarginIntraday",
+      // AddOntap: () {},
+      DeleteOntap: () {
+        if (mounted) {
+          RemoveCompany;
+        }
+        setState(() {});
+      },
+    ));
+    setState(() {});
   }
 
-   void remove_company(int index) {
-    var removecomapny = addmultiple_companylist[index];
-    if (addmultiple_companylist.length>1){//at least one lis item in listview builder 
-      addmultiple_companylist.removeAt(index);
+  Future<void> RemoveCompany(int index) async {
+    if (AddmultipleMompanylist.length > 1) {
+       await AddmultipleMompanylist.removeAt(index);
+      // setState(() {});
     }
-
-      if (selected_company == addmultiple_companylist[index]) {
-        selected_company = '';
-
-      }
-  
   }
+
+  // void RemoveCompany(int index) {
+  //   var removecomapny = AddmultipleMompanylist[index];
+
+  //   if (AddmultipleMompanylist.isNotEmpty &&
+  //       index >= 0 &&
+  //       index < AddmultipleMompanylist.length) {
+  //     AddmultipleMompanylist.removeAt(index);
+  //      OrderPriceController.removeAt(index).dispose();
+  //     ShareValueController.removeAt(index).dispose();
+  //   }
+
+  //   if (selected_company == removecomapny) {
+  //     selected_company = '';
+  //   }
+  //   AddmultipleMompanylist.removeLast();
+
+  //   setState(() {});
+  // }
 
   @override
   void dispose() {
-    searchController.dispose();
-    Share_valueController.dispose();
-    Order_PriceController.dispose();
-
+    // for (var controller in ShareValueController) {
+    //   controller.dispose();
+    // }
+    // for (var controller in OrderPriceController) {
+    //   controller.dispose();
+    // }
+    // SearchController.dispose();
     focusNode1.dispose();
     focusNode2.dispose();
     super.dispose();
@@ -997,14 +1024,13 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
       body: Column(
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: ListView.builder(
-                itemCount: addmultiple_companylist.length,
+                itemCount: AddmultipleMompanylist.length,
                 itemBuilder: (context, index) {
-                  final newcompanyadd = addmultiple_companylist[index];
+                  final newcompanyadd = AddmultipleMompanylist[index];
                   final defitem1 = newcompanyadd.items1.toSet().toList();
                   final defitem2 = newcompanyadd.items2.toSet().toList();
-            
                   final value1 = defitem1.contains(
                           newcompanyadd.value1) //selected_buysellvlaue
                       ? newcompanyadd.value1
@@ -1012,50 +1038,46 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                           ? defitem1[0]
                           : null;
                   final value2 = defitem2.contains(
-                          newcompanyadd.value1) //selected_exchangevalue
+                          newcompanyadd.value1) //SelectedExchangevalue
                       ? newcompanyadd.value1
                       : defitem2.isNotEmpty
                           ? defitem2[0]
                           : null;
-            
+
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Dismissible(
-                      key: ValueKey(index),
-                      background: Container(
-                        color: AppColors.RedColor,
-              alignment: Alignment.centerRight,
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Icon(Icons.delete, color: Colors.white),
-                      ),
-                      direction: DismissDirection.none,
-                      onDismissed: (direction) {
-                        remove_company(index);
+                    child: Add_newCompany(
+                      textfiledserch: newcompanyadd.textfiledserch,
+                      items1: newcompanyadd.items1,
+                      items2: newcompanyadd.items2,
+                      value1: newcompanyadd.value1,
+                      value2: newcompanyadd.value2,
+                      onchanged1: (newvalue) {
+                        setState(() {
+                          SelectedBuysellvalue = newvalue ?? "";
+                          newcompanyadd.value1 == SelectedBuysellvalue;
+                          CalculateOrder();
+                        });
                       },
-                      child: Add_newCompany(
-                        textfiledserch: newcompanyadd.textfiledserch,
-                        items1: newcompanyadd.items1,
-                        items2: newcompanyadd.items2,
-                        value1: newcompanyadd.value1,
-                        value2: newcompanyadd.value2,
-                        onchanged1: (newvalue) {
+                      onchanged2: (newvalue) {
+                        setState(() {
+                          SelectedExchangevalue = newvalue ?? "";
+                          CalculateOrder();
+                        });
+                      },
+                      TextmarginIntraday: newcompanyadd.TextmarginIntraday,
+                      TextMarginDelivery: newcompanyadd.TextMarginDelivery,
+                      customtextfield1: newcompanyadd.customtextfield1,
+                      customtextfield2: newcompanyadd.customtextfield2,
+                      // AddOntap: () {},
+                      DeleteOntap: () {
+                        if (mounted) {
                           setState(() {
-                            selected_buysellvalue = newvalue ?? "";
-                            newcompanyadd.value1 == selected_buysellvalue;
-                            calculate_Order();
+                            RemoveCompany(index);
                           });
-                        },
-                        onchanged2: (newvalue) {
-                          setState(() {
-                            selected_exchangevalue = newvalue ?? "";
-                            calculate_Order();
-                          });
-                        },
-                        textmargin_intraday: newcompanyadd.textmargin_intraday,
-                        textmargin_delivery: newcompanyadd.textmargin_delivery,
-                        customtextfield1: newcompanyadd.customtextfield1,
-                        customtextfield2: newcompanyadd.customtextfield2,
-                      ),
+                          // RemoveCompany(AddmultipleMompanylist.indexOf(newcompanyadd));
+                        }
+                      },
                     ),
                   );
                 }),
@@ -1089,9 +1111,10 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                             text: 'Remove ',
                             onPressed: () {
                               setState(() {
-                                    print("pressed remove");
-
-                                remove_company;
+                                print("pressed remove");
+                                if (mounted) {
+                                  RemoveCompany;
+                                }
                               });
                             }),
                       ),
@@ -1120,7 +1143,7 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                 //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 //           children: [
                 //             Text(
-                //               "MARGIN FOR DELIVERY:",
+                //               "Margin For Delivery:",
                 //               style: TextStyle(
                 //                   color: AppColors.primaryColorDark2,
                 //                   fontSize: 15),
@@ -1133,7 +1156,7 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                 //                     color: AppColors.primaryColorLight2),
                 //                 borderRadius: BorderRadius.circular(10),
                 //               ),
-                //               child: Center(child: Text("$Margin_delivery")),
+                //               child: Center(child: Text("$MarginDelivery")),
                 //             ),
                 //           ],
                 //         ),
@@ -1144,7 +1167,7 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                 //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 //           children: [
                 //             Text(
-                //               "MARGIN FOR INTRADAY:",
+                //               "Margin For Intraday:",
                 //               style: TextStyle(
                 //                   color: AppColors.primaryColorDark2,
                 //                   fontSize: 15),
@@ -1157,16 +1180,16 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                 //                       color: AppColors.primaryColorLight2),
                 //                   borderRadius: BorderRadius.circular(10),
                 //                 ),
-                //                 child: Center(child: Text("$Margin_intraday"))),
+                //                 child: Center(child: Text("$MarginIntraday"))),
                 //           ],
                 //         ),
                 //       ],
                 //     ),
                 //   ),
                 // ),
-                // SizedBox(
-                //   height: 10,
-                // ),
+                SizedBox(
+                  height: 10,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -1181,7 +1204,7 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                             clipBehavior: Clip.antiAlias,
                             onPressed: () {
                               setState(() {
-                                calculate_Order();
+                                CalculateOrder();
                               });
                             },
                             child: Text(
@@ -1197,10 +1220,10 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                           isLoading: false,
                           text: 'Cancel',
                           onPressed: () {
-                            Order_PriceController.clear();
-                            Share_valueController.clear();
-                            // Margin_delivery = 0.0;
-                            // Margin_intraday = 0.0;
+                            OrderPriceController.clear();
+                            ShareValueController.clear();
+                            MarginDelivery = 0.0;
+                            MarginIntraday = 0.0;
                           }),
                     ),
                   ],
@@ -1209,298 +1232,6 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class Add_newCompany extends StatefulWidget {
-  // List initialList1;
-  final TextFieldSearch textfiledserch;
-
-  final CustomTextFormField customtextfield1;
-  final CustomTextFormField customtextfield2;
-  final List<String> items1;
-  final List<String> items2;
-  final dynamic value1;
-  final dynamic value2;
-  final String textmargin_delivery;
-  final String textmargin_intraday;
-
-  Function(dynamic)? onchanged1;
-  Function(dynamic)? onchanged2;
-
-  Add_newCompany({
-    super.key,
-    required this.textfiledserch,
-    required this.value2,
-    required this.textmargin_delivery,
-    required this.textmargin_intraday,
-    required this.items1,
-    required this.value1,
-    required this.onchanged1,
-    required this.onchanged2,
-    required this.items2,
-    required this.customtextfield1,
-    required this.customtextfield2,
-  });
-
-  @override
-  State<Add_newCompany> createState() => _Add_newCompanyState();
-}
-
-class _Add_newCompanyState extends State<Add_newCompany> {
-  TextEditingController searchController = TextEditingController();
-
-  List<String> companies = [
-    "Swiggy Ltd.",
-    "Enviro infra Engineers Ltd.",
-    "Tata Motors Ltd"
-  ];
-  String? selected_buysellvalue = 'BUY';
-  String? selected_exchangevalue = 'NSE';
-
-  List<String> filteredCompanies = [];
-
-  void filterCompanies(String query) {
-    setState(() {
-      filteredCompanies = companies
-          .where(
-              (company) => company.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
-  }
-
-  final TextEditingController Order_PriceController = TextEditingController();
-  final TextEditingController Share_valueController = TextEditingController();
-  //  TextFieldSearch? textFieldSearch;
-
-  final FocusNode focusNode1 = FocusNode();
-  final FocusNode focusNode2 = FocusNode();
-
-  @override
-  void dispose() {
-    focusNode1.dispose();
-    focusNode2.dispose();
-    searchController.dispose();
-    Share_valueController.dispose();
-    Order_PriceController.dispose();
-
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.primaryColorLight2),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Company:",
-              style:
-                  TextStyle(color: AppColors.primaryColorDark2, fontSize: 14),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.primaryColorLight2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      filterCompanies(searchController.text);
-                    });
-                  },
-                  child: widget.textfiledserch),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "BUY/SELL:",
-                      style: TextStyle(
-                          color: AppColors.primaryColorDark2, fontSize: 15),
-                    ),
-                    Container(
-                      width: 150,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.primaryColorLight2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                        value: widget.value1,
-                        items: widget.items1.map((String item) {
-                          return DropdownMenuItem<String>(
-                              value: item,
-                              child: Center(
-                                child: Text(
-                                  item,
-                                  style: TextStyle(
-                                      color: AppColors.primaryColorDark1,
-                                      fontSize: 15),
-                                ),
-                              ));
-                        }).toList(),
-                        onChanged: (newvalue) {
-                          setState(() {
-                            selected_buysellvalue != newvalue;
-                            if (widget.onchanged1 != null) {
-                              widget.onchanged1!(newvalue);
-                            }
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "Exchange:",
-                      style: TextStyle(
-                          color: AppColors.primaryColorDark2, fontSize: 15),
-                    ),
-                    Container(
-                      width: 150,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.primaryColorLight2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: DropdownButtonFormField(
-                        alignment: AlignmentDirectional.center,
-                        decoration: InputDecoration(border: InputBorder.none),
-                        value: widget.value2,
-                        items: widget.items2.map((String item) {
-                          return DropdownMenuItem<String>(
-                              alignment: AlignmentDirectional.center,
-                              value: item,
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                    color: AppColors.primaryColorDark1,
-                                    fontSize: 15),
-                              ));
-                        }).toList(),
-                        onChanged: (newvalue) {
-                          setState(() {
-                            selected_exchangevalue != newvalue;
-                            if (widget.onchanged2 != null) {
-                              widget.onchanged2!(newvalue);
-                            }
-                          });
-                          // setState(() {
-                          //   selected_exchangevalue != newvalue2;
-                          //   // selected_exchangevalue = newvalue2!;
-                          // });
-
-                          // print_selectedcompany();
-                          // calculate_Order();
-                        },
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "Order Price:",
-                      style: TextStyle(
-                          color: AppColors.primaryColorDark2, fontSize: 15),
-                    ),
-                    Container(
-                      width: 150,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.primaryColorLight2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: widget.customtextfield1,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "Share:",
-                      style: TextStyle(
-                          color: AppColors.primaryColorDark2, fontSize: 15),
-                    ),
-                    Container(
-                        width: 150,
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(color: AppColors.primaryColorLight2),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: widget.customtextfield2),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "MARGIN FOR DELIVERY:",
-                  style: TextStyle(
-                      color: AppColors.primaryColorDark2, fontSize: 15),
-                ),
-                Container(
-                  width: 310,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primaryColorLight2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(child: Text(widget.textmargin_delivery ?? "")),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "MARGIN FOR INTRADAY:",
-                  style: TextStyle(
-                      color: AppColors.primaryColorDark2, fontSize: 15),
-                ),
-                Container(
-                  width: 310,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primaryColorLight2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(child: Text(widget.textmargin_intraday ?? "")),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }

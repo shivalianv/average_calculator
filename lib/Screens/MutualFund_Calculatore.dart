@@ -4,14 +4,14 @@ import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 import 'dart:math';
 
-class Mutual_Fund_Return extends StatefulWidget {
-  const Mutual_Fund_Return({super.key});
+class MutualFundReturn extends StatefulWidget {
+  const MutualFundReturn({super.key});
 
   @override
-  State<Mutual_Fund_Return> createState() => _Mutual_Fund_ReturnState();
+  State<MutualFundReturn> createState() => _MutualFundReturnState();
 }
 
-class _Mutual_Fund_ReturnState extends State<Mutual_Fund_Return> {
+class _MutualFundReturnState extends State<MutualFundReturn> {
   int totalvalue = 0;
   double percentage1 = 500.0;
   double minimumvalue1 = 500.0;

@@ -328,30 +328,30 @@
 //                                       color: AppColors.primaryColorLight2),
 //                                   borderRadius: BorderRadius.circular(10),
 //                                 ),
-//                                 child: DropdownButtonFormField(
-//                                     decoration: InputDecoration(
-//                                         border: InputBorder.none),
-//                                     value: selected_buysellvalue,
-//                                     items: buysell_list.map((String buysell_list) {
-//                                       return DropdownMenuItem<String>(
-//                                           value: buysell_list,
-//                                           child: Center(
-//                                             child: Text(
-//                                               buysell_list,
-//                                               style: TextStyle(
-//                                                   color: AppColors
-//                                                       .primaryColorDark1,
-//                                                   fontSize: 15),
-//                                             ),
-//                                           ));
-//                                     }).toList(),
-//                                     onChanged: (newvalue) {
-//                                       setState(() {
-//                                         selected_buysellvalue = newvalue!;
-//                                       });
+                                // child: DropdownButtonFormField(
+                                //     decoration: InputDecoration(
+                                //         border: InputBorder.none),
+                                //     value: selected_buysellvalue,
+                                //     items: buysell_list.map((String buysell_list) {
+                                //       return DropdownMenuItem<String>(
+                                //           value: buysell_list,
+                                //           child: Center(
+                                //             child: Text(
+                                //               buysell_list,
+                                //               style: TextStyle(
+                                //                   color: AppColors
+                                //                       .primaryColorDark1,
+                                //                   fontSize: 15),
+                                //             ),
+                                //           ));
+                                //     }).toList(),
+                                //     onChanged: (newvalue) {
+                                //       setState(() {
+                                //         selected_buysellvalue = newvalue!;
+                                //       });
 
-//                                       calculate_Order();
-//                                     }),
+                                //       calculate_Order();
+                                //     }),
 //                               ),
 //                             ],
 //                           ),
@@ -370,32 +370,32 @@
 //                                       color: AppColors.primaryColorLight2),
 //                                   borderRadius: BorderRadius.circular(10),
 //                                 ),
-//                                 child: DropdownButtonFormField(
-//                                     alignment: AlignmentDirectional.center,
-//                                     decoration: InputDecoration(
-//                                         border: InputBorder.none),
-//                                     value: selected_exchangevalue,
-//                                     items: exchange_list.map((String exchange_list) {
-//                                       return DropdownMenuItem<String>(
-//                                           alignment:
-//                                               AlignmentDirectional.center,
-//                                           value: exchange_list,
-//                                           child: Text(
-//                                             exchange_list,
-//                                             style: TextStyle(
-//                                                 color:
-//                                                     AppColors.primaryColorDark1,
-//                                                 fontSize: 15),
-//                                           ));
-//                                     }).toList(),
-//                                     onChanged: (newvalue2) {
-//                                       setState(() {
-//                                         selected_exchangevalue = newvalue2!;
-//                                       });
+                                // child: DropdownButtonFormField(
+                                //     alignment: AlignmentDirectional.center,
+                                //     decoration: InputDecoration(
+                                //         border: InputBorder.none),
+                                //     value: selected_exchangevalue,
+                                //     items: exchange_list.map((String exchange_list) {
+                                //       return DropdownMenuItem<String>(
+                                //           alignment:
+                                //               AlignmentDirectional.center,
+                                //           value: exchange_list,
+                                //           child: Text(
+                                //             exchange_list,
+                                //             style: TextStyle(
+                                //                 color:
+                                //                     AppColors.primaryColorDark1,
+                                //                 fontSize: 15),
+                                //           ));
+                                //     }).toList(),
+                                //     onChanged: (newvalue2) {
+                                //       setState(() {
+                                //         selected_exchangevalue = newvalue2!;
+                                //       });
 
-//                                       print_selectedcompany();
-//                                       calculate_Order();
-//                                     }),
+                                //       print_selectedcompany();
+                                //       calculate_Order();
+                                //     }),
 //                               ),
 //                             ],
 //                           )

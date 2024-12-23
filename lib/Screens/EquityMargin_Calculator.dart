@@ -4,21 +4,21 @@ import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 import 'package:textfield_search/textfield_search.dart';
 
-class Equity_Margin_calculator extends StatefulWidget {
-  const Equity_Margin_calculator({super.key});
+class EquityMargincalculator extends StatefulWidget {
+  const EquityMargincalculator({super.key});
 
   @override
-  State<Equity_Margin_calculator> createState() =>
-      _Equity_Margin_calculatorState();
+  State<EquityMargincalculator> createState() => _EquityMargincalculatorState();
 }
 
-class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
-  final TextEditingController SearchController = TextEditingController();
-
+class _EquityMargincalculatorState extends State<EquityMargincalculator> {
+  TextEditingController SearchController = TextEditingController();
   // final TextEditingController OrderPriceController = TextEditingController();
   // final TextEditingController ShareValueController = TextEditingController();
-  List<TextEditingController> OrderPriceController = [];
-  List<TextEditingController> ShareValueController = [];
+
+  List<TextEditingController> OrderPriceController = <TextEditingController>[];
+  List<TextEditingController> ShareValueController = <TextEditingController>[];
+  List<String> FilteredCompaniesList = <String>[];
 
   final FocusNode focusNode1 = FocusNode();
   final FocusNode focusNode2 = FocusNode();
@@ -27,42 +27,50 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
   void initState() {
     RemoveCompany;
     FilteredCompaniesList = companies;
-
+    OrderPriceController = List.generate(5, (index) => TextEditingController());
+    ShareValueController = List.generate(5, (index) => TextEditingController());
+    OrderPriceController.forEach((controller) {
+      controller.addListener(SelectedCompany1);
+    });
+    ShareValueController.forEach((controller) {
+      controller.addListener(SelectedCompany1);
+    });
+    // ShareValueController.addListener(SelectedCompany1);
+    // OrderPriceController.addListener(SelectedCompany1);
     SearchController.addListener(SelectedCompany1);
     CalculateOrder();
     Add_company();
+    SelectedCompany1();
 
     super.initState();
   }
 
-  List<String> FilteredCompaniesList = [];
-
-  Map<String, double> CompanyBSEvalue = {
+  Map<String, double> CompanyBSEvalue = <String, double>{
     "Swiggy Ltd.": 594.80,
     "Enviro infra Engineers Ltd.": 380.50,
     "Tata Motors Ltd": 784.70
   };
-  Map<String, double> Company_NSEvalue = {
+  Map<String, double> CompanyNSEvalue = <String, double>{
     "Swiggy Ltd.": 596.35,
     "Enviro infra Engineers Ltd.": 269.62,
     "Tata Motors Ltd": 784.80
   };
 
-  List<String> companies = [
+  List<String> companies = <String>[
     "Swiggy Ltd.",
     "Enviro infra Engineers Ltd.",
     "Tata Motors Ltd"
   ];
 
-  List<Add_newCompany> AddmultipleMompanylist = [];
-  String selected_company = '';
+  List<Add_newCompany> AddmultipleMompanylist = <Add_newCompany>[];
+  String SelectedCompany = '';
   String SelectedBuysellList = '';
 
   String? SelectedBuysellvalue = 'BUY';
   String? SelectedExchangevalue = 'NSE';
 
-  List<String> BuysellList = ['BUY', 'SELL']; //Option
-  List<String> ExchangeList = ['NSE', 'BSE']; //Option2
+  List<String> BuysellList = <String>['BUY', 'SELL']; //Option
+  List<String> ExchangeList = <String>['NSE', 'BSE']; //Option2
 
   double MarginDelivery = 0.0;
   double MarginIntraday = 0.0;
@@ -73,47 +81,55 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
     String selectedCompany = SearchController.text.trim();
 
     if (SelectedExchangevalue == 'NSE') {
-      if (Company_NSEvalue.containsKey(selectedCompany)) {
-        companyvalue = Company_NSEvalue[selectedCompany]!;
+      if (CompanyNSEvalue.containsKey(selectedCompany)) {
+        companyvalue = CompanyNSEvalue[selectedCompany]!;
+        print(CompanyNSEvalue);
       } else {
         print("Company not found: $selectedCompany");
       }
     } else {
       if (CompanyBSEvalue.containsKey(selectedCompany)) {
         companyvalue = CompanyBSEvalue[selectedCompany]!;
+        print(CompanyBSEvalue);
       } else {
         print("Company not found: $selectedCompany");
       }
     }
     if (companyvalue != 0.0) {
-      OrderPriceController;
-      // OrderPriceController = companyvalue.toStringAsFixed(2);
+      OrderPriceController = [];
+      //  OrderPriceController.text = companyvalue.toStringAsFixed(2);
+      print(OrderPriceController);
     } else {
-      OrderPriceController;
-      // OrderPriceController = '';
+      OrderPriceController = [];
+      // OrderPriceController.text = '';
+      print(OrderPriceController);
     }
     setState(() {});
   }
 
   Future<void> CalculateOrder() async {
-    //
     List<TextEditingController> Ordervalue = OrderPriceController;
     List<TextEditingController> Sharevalue = ShareValueController;
+
+    // String Ordervalue = OrderPriceController.text;
+    // String Sharevalue = ShareValueController.text;
 
     double parseToDouble(String input1) {
       String cleanedInput1 = input1.replaceAll(RegExp(r'[^0-9.]'), '');
       return double.tryParse(cleanedInput1) ?? 0.0;
     }
 
+    // double OrderPrice = parseToDouble(Ordervalue);
+    // double Sharevaluealue = parseToDouble(Sharevalue);
     double OrderPrice = parseToDouble(Ordervalue.toString());
     double Sharevaluealue = parseToDouble(Sharevalue.toString());
 
     double RoundDelivery = OrderPrice * Sharevaluealue;
     MarginDelivery = double.parse(RoundDelivery.toStringAsFixed(3));
 
-    double round_intraday = OrderPrice * Sharevaluealue * (20 / 100);
+    double roundIntraday = OrderPrice * Sharevaluealue * (20 / 100);
 
-    MarginIntraday = double.parse(round_intraday.toStringAsFixed(2));
+    MarginIntraday = double.parse(roundIntraday.toStringAsFixed(2));
 
     if (SelectedBuysellvalue == 'BUY') {
       SelectedBuysellList = MarginDelivery.toStringAsFixed(2);
@@ -129,28 +145,38 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
     final TextEditingController OrderPriceController = TextEditingController();
     final TextEditingController ShareValueController = TextEditingController();
 
+
+  //   OrderPriceController.add(OrderPriceController);
+  // ShareValueController.add(ShareValueController);
+
     AddmultipleMompanylist.add(Add_newCompany(
       textfiledserch: TextFieldSearch(
         decoration: InputDecoration(border: InputBorder.none),
         initialList: FilteredCompaniesList,
         controller: TextEditingController(),
-        // controller: SearchController,
+        // controller:SearchController ,
         label: 'Search Company',
         textStyle: TextStyle(color: AppColors.primaryColorDark1, fontSize: 14),
       ),
       value1: SelectedBuysellvalue,
+      // items1: BuysellList,
       items1: BuysellList.toSet().toList(),
       value2: SelectedExchangevalue,
+      // items2: ExchangeList,
       items2: ExchangeList.toSet().toList(),
       onchanged1: (newvalue) {
+        print('Print onchange1.............');
         setState(() {
-          SelectedBuysellvalue = newvalue ?? "";
+          SelectedBuysellvalue = newvalue!;
           CalculateOrder();
         });
       },
       onchanged2: (newvalue) {
+        print('Print onchange2.............');
+
         setState(() {
-          SelectedBuysellvalue = newvalue ?? "";
+          SelectedBuysellvalue = newvalue!;
+          CalculateOrder();
         });
       },
       customtextfield1: CustomTextFormField(
@@ -161,7 +187,10 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
         icon: Icons.currency_rupee,
         errorMessage: 'Order Price',
         onchange: (value) {
+          print("orderprice..........$OrderPriceController");
+
           setState(() {
+            OrderPriceController != value;
             CalculateOrder();
           });
         },
@@ -173,7 +202,9 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
         controller: ShareValueController,
         errorMessage: 'Invalid value Share',
         onchange: (value) {
+          print("sharevalue..........$ShareValueController");
           setState(() {
+            ShareValueController!=value;
             CalculateOrder();
           });
         },
@@ -192,31 +223,14 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
     setState(() {});
   }
 
-  Future<void> RemoveCompany(int index) async {
+  void RemoveCompany(int index) {
+   
+
     if (AddmultipleMompanylist.length > 1) {
-       await AddmultipleMompanylist.removeAt(index);
-      // setState(() {});
+      AddmultipleMompanylist.removeAt(index);
     }
+    
   }
-
-  // void RemoveCompany(int index) {
-  //   var removecomapny = AddmultipleMompanylist[index];
-
-  //   if (AddmultipleMompanylist.isNotEmpty &&
-  //       index >= 0 &&
-  //       index < AddmultipleMompanylist.length) {
-  //     AddmultipleMompanylist.removeAt(index);
-  //      OrderPriceController.removeAt(index).dispose();
-  //     ShareValueController.removeAt(index).dispose();
-  //   }
-
-  //   if (selected_company == removecomapny) {
-  //     selected_company = '';
-  //   }
-  //   AddmultipleMompanylist.removeLast();
-
-  //   setState(() {});
-  // }
 
   @override
   void dispose() {
@@ -229,6 +243,19 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
     // SearchController.dispose();
     focusNode1.dispose();
     focusNode2.dispose();
+    // OrderPriceController.dispose();
+    // ShareValueController.dispose();
+    OrderPriceController.forEach((controller) {
+      controller.dispose();
+    });
+    ShareValueController.forEach((controller) {
+      controller.dispose();
+    });
+   
+
+    // SearchController.dispose();
+    SearchController.removeListener(SelectedCompany1);
+
     super.dispose();
   }
 
@@ -256,10 +283,13 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
             flex: 3,
             child: ListView.builder(
                 itemCount: AddmultipleMompanylist.length,
-                itemBuilder: (context, index) {
-                  final newcompanyadd = AddmultipleMompanylist[index];
-                  final defitem1 = newcompanyadd.items1.toSet().toList();
-                  final defitem2 = newcompanyadd.items2.toSet().toList();
+                itemBuilder: (BuildContext context, int index) {
+                  final Add_newCompany newcompanyadd =
+                      AddmultipleMompanylist[index];
+                  final List<String> defitem1 =
+                      newcompanyadd.items1.toSet().toList();
+                  final List<String> defitem2 =
+                      newcompanyadd.items2.toSet().toList();
                   final value1 = defitem1.contains(
                           newcompanyadd.value1) //selected_buysellvlaue
                       ? newcompanyadd.value1
@@ -283,21 +313,57 @@ class _Equity_Margin_calculatorState extends State<Equity_Margin_calculator> {
                       value2: newcompanyadd.value2,
                       onchanged1: (newvalue) {
                         setState(() {
-                          SelectedBuysellvalue = newvalue ?? "";
-                          newcompanyadd.value1 == SelectedBuysellvalue;
-                          CalculateOrder();
+                          print("value onchange1,,,,,,,,,,,,,,");
+
+                          newcompanyadd.value1 = newvalue!;
+                          newcompanyadd.onchanged1!(newvalue);
                         });
+                        CalculateOrder();
                       },
                       onchanged2: (newvalue) {
+                        print("value onchange2,,,,,,,,,,,,,,");
                         setState(() {
-                          SelectedExchangevalue = newvalue ?? "";
-                          CalculateOrder();
+                          newcompanyadd.value2 = newvalue!;
+                          newcompanyadd.onchanged2!(newvalue);
                         });
+                        CalculateOrder();
+                        SelectedCompany1();
                       },
+                      customtextfield1: CustomTextFormField(
+                        autofocus: true,
+                        keyboardType: TextInputType.number,
+                        focusNode: focusNode1,
+                        controller: OrderPriceController[index],
+                        icon: Icons.currency_rupee,
+                        errorMessage: 'Order Price',
+                        onchange: (value) {
+                          print("orderprice..........$OrderPriceController");
+
+                          setState(() {
+                            CalculateOrder();
+                          });
+                        },
+                      ),
+                      customtextfield2: CustomTextFormField(
+                        autofocus: true,
+                        keyboardType: TextInputType.number,
+                        focusNode: focusNode2,
+                        controller: ShareValueController[index],
+                        errorMessage: 'Invalid value Share',
+                        onchange: (value) {
+                          print("sharevalue..........$ShareValueController");
+                          setState(() {
+                            CalculateOrder();
+                          });
+                        },
+                      ),
+                      // customtextfield1: newcompanyadd.customtextfield1,
+                      // customtextfield2: newcompanyadd.customtextfield2,
                       TextmarginIntraday: newcompanyadd.TextmarginIntraday,
                       TextMarginDelivery: newcompanyadd.TextMarginDelivery,
-                      customtextfield1: newcompanyadd.customtextfield1,
-                      customtextfield2: newcompanyadd.customtextfield2,
+                      // customtextfield1: newcompanyadd.customtextfield1,
+                      // customtextfield2: newcompanyadd.customtextfield2,
+                      
                       // AddOntap: () {},
                       DeleteOntap: () {
                         if (mounted) {

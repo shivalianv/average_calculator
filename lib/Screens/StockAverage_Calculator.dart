@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 
-class Stock_Average_Calculator extends StatefulWidget {
-  const Stock_Average_Calculator({super.key});
+
+class StockAverageCalculator extends StatefulWidget {
+  const StockAverageCalculator({super.key});
 
   @override
-  State<Stock_Average_Calculator> createState() =>
-      _Stock_Average_CalculatorState();
+  State<StockAverageCalculator> createState() =>
+      _StockAverageCalculatorState();
 }
 
-class _Stock_Average_CalculatorState extends State<Stock_Average_Calculator> {
+class _StockAverageCalculatorState extends State<StockAverageCalculator> {
   final TextEditingController BuyPriceController1 = TextEditingController();
   final TextEditingController QuantiyController1 = TextEditingController();
   final TextEditingController BuyPriceController2 = TextEditingController();
@@ -36,13 +37,13 @@ class _Stock_Average_CalculatorState extends State<Stock_Average_Calculator> {
     super.initState();
   }
 
-  void calculateAverage() {
+  Future<void> calculateAverage() async {
     double buyPrice1 = double.tryParse(BuyPriceController1.text) ?? 0.0;
     int quantity1 = int.tryParse(QuantiyController1.text) ?? 00;
     double buyPrice2 = double.tryParse(BuyPriceController2.text) ?? 0.0;
     int quantity2 = int.tryParse(QuantiyController2.text) ?? 00;
 
-    TotalAmount = buyPrice1 * quantity1 + buyPrice2 * quantity2;
+     TotalAmount = buyPrice1 * quantity1 + buyPrice2 * quantity2;
     TotalQuantity = quantity1 + quantity2;
 
     if (TotalQuantity > 0) {

@@ -4,17 +4,17 @@ import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 import 'dart:math';
 
-class Systemetic_Investment extends StatefulWidget {
-  const Systemetic_Investment({super.key});
+class SystemeticInvestment extends StatefulWidget {
+  const SystemeticInvestment({super.key});
 
   @override
-  State<Systemetic_Investment> createState() => _Systemetic_InvestmentState();
+  State<SystemeticInvestment> createState() => _SystemeticInvestmentState();
 }
 
-class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
+class _SystemeticInvestmentState extends State<SystemeticInvestment> {
   final FocusNode focusNode1 = FocusNode();
   final FocusNode focusNode2 = FocusNode();
-  final FocusNode _focusNode3 = FocusNode();
+  final FocusNode focusNode3 = FocusNode();
 
 //chart list
   List<Map<String, dynamic>>? spidata; //pie chart
@@ -22,14 +22,14 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
 
   @override
   void initState() {
-    _MonthlyInvestment_Controller.addListener(Calculate_sip);
-    Expactedreturnrate_Controller.addListener(Calculate_sip);
-    _sipTimeperiod_Controller.addListener(Calculate_sip);
+    MonthlyInvestmentController.addListener(CalculateSip);
+    ExpactedreturnrateController.addListener(CalculateSip);
+    SipTimeperiodController.addListener(CalculateSip);
 
-    _MonthlyInvestment_Controller.text = formatnumber1(sippercentage1);
-    Expactedreturnrate_Controller.text = formatnumber2(sippercentage2);
-    _sipTimeperiod_Controller.text = formatnumber3(_sippercentage3);
-    Calculate_sip();
+    MonthlyInvestmentController.text = formatnumber1(sippercentage1);
+    ExpactedreturnrateController.text = formatnumber2(sippercentage2);
+    SipTimeperiodController.text = formatnumber3(sippercentage3);
+    CalculateSip();
 
     super.initState();
   }
@@ -53,12 +53,11 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
   }
 
   //////////////sip calculator////////////////
-  final TextEditingController _MonthlyInvestment_Controller =
+  final TextEditingController MonthlyInvestmentController =
       TextEditingController();
-  final TextEditingController Expactedreturnrate_Controller =
+  final TextEditingController ExpactedreturnrateController =
       TextEditingController();
-  final TextEditingController _sipTimeperiod_Controller =
-      TextEditingController();
+  final TextEditingController SipTimeperiodController = TextEditingController();
 
   int siptotalvalue = 0;
   //total investment
@@ -66,35 +65,35 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
   double minivalue1 = 100.0;
   double maxvalue1 = 1000000.0;
   double monthInvestments = 0.0;
-  int round_sipinve = 0;
+  int roundSipinve = 0;
 
 //Expacted_rat
   double sippercentage2 = 0.01;
   double minivalue2 = 0.01;
   double maxvalue2 = 0.30;
-  double total_sipEST_return = 0.0;
-  int round_sipestr = 0;
+  double TotalSipESTReturn = 0.0;
+  int roundSipestr = 0;
 
-  double _sippercentage3 = 1.0;
+  double sippercentage3 = 1.0;
   double minivalue3 = 1.0;
   double maxvalue3 = 40.0;
-  int round_sipval = 0;
+  int roundSipValue = 0;
 
-  void Calculate_sip() {
-    String invs_sip = _MonthlyInvestment_Controller.text;
-    String excrat_sip = Expactedreturnrate_Controller.text;
-    String tim_sip = _sipTimeperiod_Controller.text;
+  void CalculateSip() {
+    String InvestmentSip = MonthlyInvestmentController.text;
+    String ExpectedReturnsSip = ExpactedreturnrateController.text;
+    String TimePeriodSip = SipTimeperiodController.text;
 
     double parseToDouble(String input1) {
       String cleanedInput1 = input1.replaceAll(RegExp(r'[^0-9.]'), '');
       return double.tryParse(cleanedInput1) ?? 0.0;
     }
 
-    double monthInvestments = parseToDouble(invs_sip);
-    double ExpectedreturnRat = parseToDouble(excrat_sip);
-    double sipTimePeriod = parseToDouble(tim_sip);
+    double monthInvestments = parseToDouble(InvestmentSip);
+    double ExpectedreturnRat = parseToDouble(ExpectedReturnsSip);
+    double sipTimePeriod = parseToDouble(TimePeriodSip);
 
-    double cal_totalsip(double monthInvestments, double ExpectedreturnRat,
+    double CalculateTotalsip(double monthInvestments, double ExpectedreturnRat,
         double sipTimePeriod) {
       double monthlyrate = ExpectedreturnRat / 12 / 100;
       int totalMonths = (sipTimePeriod * 12).toInt();
@@ -109,27 +108,27 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
           (1 + monthlyrate);
     }
 
-    double total_sipEST_return =
-        cal_totalsip(monthInvestments, ExpectedreturnRat, sipTimePeriod);
+    double TotalSipESTReturn =
+        CalculateTotalsip(monthInvestments, ExpectedreturnRat, sipTimePeriod);
 
     double totalinvestment = monthInvestments * sipTimePeriod * 12;
 
-    double totalETCrat = total_sipEST_return - totalinvestment;
+    double totalETCrat = TotalSipESTReturn - totalinvestment;
 
-    round_sipinve = totalinvestment.toInt();
-    round_sipestr = totalETCrat.toInt();
-    round_sipval = total_sipEST_return.toInt();
+    roundSipinve = totalinvestment.toInt();
+    roundSipestr = totalETCrat.toInt();
+    roundSipValue = TotalSipESTReturn.toInt();
 
 //Pie Chart
     spidata = [
       {
         'category': 'Investment',
-        'value': (monthInvestments / total_sipEST_return) * 100,
+        'value': (monthInvestments / TotalSipESTReturn) * 100,
         'color': AppColors.primaryColor2,
       },
       {
         'category': 'Expected Return',
-        'value': (totalETCrat / total_sipEST_return) * 100,
+        'value': (totalETCrat / TotalSipESTReturn) * 100,
         'color': AppColors.GreenColor,
       },
     ];
@@ -139,11 +138,11 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
   void dispose() {
     focusNode1.dispose();
     focusNode2.dispose();
-    _focusNode3.dispose();
+    focusNode3.dispose();
 
-    _MonthlyInvestment_Controller.dispose();
-    Expactedreturnrate_Controller.dispose();
-    _sipTimeperiod_Controller.dispose();
+    MonthlyInvestmentController.dispose();
+    ExpactedreturnrateController.dispose();
+    SipTimeperiodController.dispose();
 
     super.dispose();
   }
@@ -169,93 +168,98 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-                Container(
-                      width: 350,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.primaryColorLight3),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 200,
-                              height: 200,
-                              child: PieChart(
-                                PieChartData(
-                                    sectionsSpace: 0,
-                                    centerSpaceRadius: 40,
-                                    borderData: FlBorderData(
-                                      show: false,
-                                    ),
-                                    sections: spidata!.map((item) {
-                                      return PieChartSectionData(
-                                          radius: 30,
-                                          value: item['value'],
-                                          color: item['color'],
-                                          showTitle: false,
-                                          titleStyle: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                          ));
-                                    }).toList()),
-                              ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                   mainAxisAlignment: MainAxisAlignment.start, // Align items horizontally
-                crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primaryColor2,
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        width: 10,
-                                      ),
-                                    ),
-                                    Text("Investment: ",style: TextStyle(
-                                      color: AppColors.primaryColorDark2,
-                                      fontSize: 14),),
-                                  ],
+              Container(
+                  width: 350,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.primaryColorLight3),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 200,
+                          height: 200,
+                          child: PieChart(
+                            PieChartData(
+                                sectionsSpace: 0,
+                                centerSpaceRadius: 40,
+                                borderData: FlBorderData(
+                                  show: false,
                                 ),
+                                sections: spidata!.map((item) {
+                                  return PieChartSectionData(
+                                      radius: 30,
+                                      value: item['value'],
+                                      color: item['color'],
+                                      showTitle: false,
+                                      titleStyle: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ));
+                                }).toList()),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .start, // Align items horizontally
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 35),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 10,
-                                           decoration: BoxDecoration(
-                                          color: AppColors.GreenColor,
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          width: 10,
-                                        ),
-                                      ),
-                                      Text("Profit ",style: TextStyle(
-                                      color: AppColors.primaryColorDark2,
-                                      fontSize: 14),),
-                                    ],
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 10,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryColor2,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    width: 10,
                                   ),
+                                ),
+                                Text(
+                                  "Investment: ",
+                                  style: TextStyle(
+                                      color: AppColors.primaryColorDark2,
+                                      fontSize: 14),
                                 ),
                               ],
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 35),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.GreenColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      width: 10,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Profit ",
+                                    style: TextStyle(
+                                        color: AppColors.primaryColorDark2,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                      )),
-                               SizedBox(height: 10),
-
-             
+                      ],
+                    ),
+                  )),
+              SizedBox(height: 10),
               Container(
                 height: 320,
                 decoration: BoxDecoration(
@@ -278,17 +282,17 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                           ),
                           Container(
                             width: 150,
-                           decoration: BoxDecoration(
-                            border: Border.all(
-                                color: AppColors.primaryColorLight3),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: AppColors.primaryColorLight3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             child: CustomTextFormField(
                               autofocus: true,
                               keyboardType: TextInputType.number,
                               icon: Icons.currency_rupee,
                               focusNode: focusNode1,
-                              controller: _MonthlyInvestment_Controller,
+                              controller: MonthlyInvestmentController,
                               errorMessage: 'Monthly Investment',
                             ),
                           ),
@@ -303,7 +307,7 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                           onChanged: (value) {
                             setState(() {
                               sippercentage1 = value;
-                              _MonthlyInvestment_Controller.text =
+                              MonthlyInvestmentController.text =
                                   formatnumber1(sippercentage1);
                             });
                           }),
@@ -319,15 +323,15 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                           Container(
                             width: 150,
                             decoration: BoxDecoration(
-                            border: Border.all(
-                                color: AppColors.primaryColorLight3),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                              border: Border.all(
+                                  color: AppColors.primaryColorLight3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             child: CustomTextFormField(
                               autofocus: true,
                               keyboardType: TextInputType.number,
                               focusNode: focusNode2,
-                              controller: Expactedreturnrate_Controller,
+                              controller: ExpactedreturnrateController,
                               errorMessage: 'Expected Returns Rate',
                             ),
                           ),
@@ -342,7 +346,7 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                           onChanged: (value) {
                             setState(() {
                               sippercentage2 = value;
-                              Expactedreturnrate_Controller.text =
+                              ExpactedreturnrateController.text =
                                   formatnumber2(sippercentage2);
                             });
                           }),
@@ -357,32 +361,32 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                           ),
                           Container(
                             width: 150,
-                           decoration: BoxDecoration(
-                            border: Border.all(
-                                color: AppColors.primaryColorLight3),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: AppColors.primaryColorLight3),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             child: CustomTextFormField(
                               autofocus: true,
                               keyboardType: TextInputType.number,
-                              focusNode: _focusNode3,
-                              controller: _sipTimeperiod_Controller,
+                              focusNode: focusNode3,
+                              controller: SipTimeperiodController,
                               errorMessage: 'Time Period',
                             ),
                           ),
                         ],
                       ),
                       Slider(
-                          value: _sippercentage3,
+                          value: sippercentage3,
                           min: minivalue3,
                           max: maxvalue3,
                           divisions: 100,
-                          label: formatnumber3(_sippercentage3),
+                          label: formatnumber3(sippercentage3),
                           onChanged: (value) {
                             setState(() {
-                              _sippercentage3 = value;
-                              _sipTimeperiod_Controller.text =
-                                  formatnumber3(_sippercentage3);
+                              sippercentage3 = value;
+                              SipTimeperiodController.text =
+                                  formatnumber3(sippercentage3);
                             });
                           }),
                     ],
@@ -395,8 +399,6 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.primaryColorLight3),
                   borderRadius: BorderRadius.circular(10),
-                  
-                 
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -409,12 +411,14 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                           Text(
                             'Investment Amount',
                             style: TextStyle(
-                                color: AppColors.primaryColorDark2, fontSize: 15),
+                                color: AppColors.primaryColorDark2,
+                                fontSize: 15),
                           ),
                           Text(
-                            '$round_sipinve',
-                             style: TextStyle(
-                                    color: AppColors.primaryColorDark, fontSize: 15),
+                            '$roundSipinve',
+                            style: TextStyle(
+                                color: AppColors.primaryColorDark,
+                                fontSize: 15),
                           ),
                         ],
                       ),
@@ -425,12 +429,14 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                           Text(
                             'Expected Rate: ',
                             style: TextStyle(
-                                color: AppColors.primaryColorDark2, fontSize: 15),
+                                color: AppColors.primaryColorDark2,
+                                fontSize: 15),
                           ),
                           Text(
-                            '$round_sipestr',
-                             style: TextStyle(
-                                    color: AppColors.primaryColorDark, fontSize: 15),
+                            '$roundSipestr',
+                            style: TextStyle(
+                                color: AppColors.primaryColorDark,
+                                fontSize: 15),
                           ),
                         ],
                       ),
@@ -441,12 +447,14 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                           Text(
                             'Total Value: ',
                             style: TextStyle(
-                                color: AppColors.primaryColorDark2, fontSize: 15),
+                                color: AppColors.primaryColorDark2,
+                                fontSize: 15),
                           ),
                           Text(
-                            '$round_sipval',
-                              style: TextStyle(
-                                    color: AppColors.primaryColorDark, fontSize: 15),
+                            '$roundSipValue',
+                            style: TextStyle(
+                                color: AppColors.primaryColorDark,
+                                fontSize: 15),
                           ),
                         ],
                       ),
@@ -460,14 +468,15 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                 children: [
                   Container(
                       width: 150,
-                     decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.primaryColorLight3),
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppColors.primaryBackgroundColor),
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(color: AppColors.primaryColorLight3),
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.primaryBackgroundColor),
                       child: TextButton(
                           clipBehavior: Clip.antiAlias,
                           onPressed: () {
-                            Calculate_sip();
+                            CalculateSip();
                           },
                           child: Text(
                             "Calculate",
@@ -482,13 +491,13 @@ class _Systemetic_InvestmentState extends State<Systemetic_Investment> {
                         isLoading: false,
                         text: 'Cancel',
                         onPressed: () {
-                          _MonthlyInvestment_Controller.clear();
-                          Expactedreturnrate_Controller.clear();
-                          _sipTimeperiod_Controller.clear();
+                          MonthlyInvestmentController.clear();
+                          ExpactedreturnrateController.clear();
+                          SipTimeperiodController.clear();
                           setState(() {
                             sippercentage1 = minivalue1;
                             sippercentage2 = minivalue2;
-                            _sippercentage3 = minivalue3;
+                            sippercentage3 = minivalue3;
                           });
                         }),
                   ),

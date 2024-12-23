@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
               CustomButton(
                 text: 'Stock Average calculator',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/Stock_Average_Calculator');
+                  Navigator.of(context).pushNamed('/StockAverageCalculator');
                 },
                 isLoading: false,
               ),
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               CustomButton(
                 text: 'Mutual Fund Return',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/Mutual_Fund_Return');
+                  Navigator.of(context).pushNamed('/MutualFundReturn');
                 },
                 isLoading: false,
               ),
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               CustomButton(
                 text: 'SIP',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/Systemetic_Investment');
+                  Navigator.of(context).pushNamed('/SystemeticInvestment');
                 },
                 isLoading: false,
               ),
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               CustomButton(
                 text: 'Equity Margin calculator',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/Equity_Margin_calculator');
+                  Navigator.of(context).pushNamed('/EquityMargincalculator');
                 },
                 isLoading: false,
               )

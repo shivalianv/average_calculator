@@ -5,35 +5,34 @@ import 'package:textfield_search/textfield_search.dart';
 
 class Add_newCompany extends StatefulWidget {
   final TextFieldSearch textfiledserch;
-
-  final CustomTextFormField customtextfield1;
-  final CustomTextFormField customtextfield2;
   final List<String> items1;
   final List<String> items2;
+
   late final dynamic value1;
   late final dynamic value2;
-  final String TextMarginDelivery;
-  final String TextmarginIntraday;
-  // Function()? AddOntap;
-  Function()? DeleteOntap;
-
   Function(dynamic)? onchanged1;
   Function(dynamic)? onchanged2;
+  final CustomTextFormField customtextfield1;
+  final CustomTextFormField customtextfield2;
+  final String TextMarginDelivery;
+  final String TextmarginIntraday;
+  Function()? DeleteOntap;
+  Function()? ontap1;
 
   Add_newCompany(
       {super.key,
       required this.textfiledserch,
-      required this.value2,
-      required this.TextMarginDelivery,
-      required this.TextmarginIntraday,
+      required this.ontap1,
       required this.items1,
+      required this.items2,
       required this.value1,
+      required this.value2,
       required this.onchanged1,
       required this.onchanged2,
-      required this.items2,
       required this.customtextfield1,
       required this.customtextfield2,
-      // required this.AddOntap,
+      required this.TextMarginDelivery,
+      required this.TextmarginIntraday,
       required this.DeleteOntap});
 
   @override
@@ -41,19 +40,11 @@ class Add_newCompany extends StatefulWidget {
 }
 
 class _Add_newCompanyState extends State<Add_newCompany> {
-  final TextEditingController OrderPriceController = TextEditingController();
-  final TextEditingController ShareValueController = TextEditingController();
-  TextEditingController SearchController = TextEditingController();
-    List<String> FilteredCompaniesList = [];
-
+  List<String> FilteredCompaniesList = [];
 
   @override
   void initState() {
     FilteredCompaniesList = companies;
-    OrderPriceController.addListener(SelectedCompany1);
-    ShareValueController.addListener(SelectedCompany1);
-    
-
     super.initState();
   }
 
@@ -62,46 +53,6 @@ class _Add_newCompanyState extends State<Add_newCompany> {
     "Enviro infra Engineers Ltd.",
     "Tata Motors Ltd"
   ];
-  String? SelectedBuysellvalue = 'BUY';
-  String? SelectedExchangevalue = 'NSE';
-
-  Map<String, double> CompanyBSEvalue = <String, double>{
-    "Swiggy Ltd.": 594.80,
-    "Enviro infra Engineers Ltd.": 380.50,
-    "Tata Motors Ltd": 784.70
-  };
-  Map<String, double> CompanyNSEvalue = <String, double>{
-    "Swiggy Ltd.": 596.35,
-    "Enviro infra Engineers Ltd.": 269.62,
-    "Tata Motors Ltd": 784.80
-  };
-  Future<void> SelectedCompany1() async {
-    //
-    double companyvalue = 0.0;
-    String selectedCompany = SearchController.text.trim();
-
-    if (SelectedExchangevalue == 'NSE') {
-      if (CompanyNSEvalue.containsKey(selectedCompany)) {
-        companyvalue = CompanyNSEvalue[selectedCompany]!;
-      } else {
-        print("Company not found: $selectedCompany");
-      }
-    } else {
-      if (CompanyBSEvalue.containsKey(selectedCompany)) {
-        companyvalue = CompanyBSEvalue[selectedCompany]!;
-      } else {
-        print("Company not found: $selectedCompany");
-      }
-    }
-    if (companyvalue != 0.0) {
-      // OrderPriceController;
-     OrderPriceController.text = companyvalue.toStringAsFixed(2);
-    } else {
-      // OrderPriceController;
-      OrderPriceController.text = '';
-    }
-    setState(() {});
-  }
 
   void filterCompanies(String query) {
     setState(() {
@@ -112,22 +63,16 @@ class _Add_newCompanyState extends State<Add_newCompany> {
     });
   }
 
-  // List<TextEditingController> OrderPriceController = [];
-  // List<TextEditingController> ShareValueController = [];
+  // final FocusNode focusNode1 = FocusNode();
+  // final FocusNode focusNode2 = FocusNode();
 
-  final FocusNode focusNode1 = FocusNode();
-  final FocusNode focusNode2 = FocusNode();
+  // @override
+  // void dispose() {
+  //   focusNode1.dispose();
+  //   focusNode2.dispose();
 
-  @override
-  void dispose() {
-    focusNode1.dispose();
-    focusNode2.dispose();
-    // OrderPriceController.dispose();
-    // ShareValueController.dispose();
-    // SearchController.dispose();
-
-    super.dispose();
-  }
+  //   super.dispose();
+  // }
 
   @override
   Widget build(
@@ -154,12 +99,7 @@ class _Add_newCompanyState extends State<Add_newCompany> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      filterCompanies(SearchController.text);
-                    });
-                  },
-                  child: widget.textfiledserch),
+                  onTap: widget.ontap1, child: widget.textfiledserch),
             ),
             SizedBox(
               height: 10,
@@ -183,8 +123,8 @@ class _Add_newCompanyState extends State<Add_newCompany> {
                       child: DropdownButtonFormField(
                           decoration: InputDecoration(border: InputBorder.none),
                           value: widget.value1,
-                          items: widget.items1.map((String item) {
-                            return DropdownMenuItem<String>(
+                          items: ['BUY', 'SELL'].map((item) {
+                            return DropdownMenuItem(
                                 value: item,
                                 child: Center(
                                   child: Text(
@@ -195,16 +135,7 @@ class _Add_newCompanyState extends State<Add_newCompany> {
                                   ),
                                 ));
                           }).toList(),
-                          onChanged: widget.onchanged1
-                          // (newvalue) {
-                          //   setState(() {
-                          //     SelectedBuysellvalue = newvalue as String?;
-                          //     if (widget.onchanged1 != null) {
-                          //       widget.onchanged1!(newvalue);
-                          //     }
-                          //   });
-                          // },
-                          ),
+                          onChanged: widget.onchanged1),
                     ),
                   ],
                 ),
@@ -225,8 +156,8 @@ class _Add_newCompanyState extends State<Add_newCompany> {
                           alignment: AlignmentDirectional.center,
                           decoration: InputDecoration(border: InputBorder.none),
                           value: widget.value2,
-                          items: widget.items2.map((String item) {
-                            return DropdownMenuItem<String>(
+                          items: ['NSE', 'BSE'].map((item) {
+                            return DropdownMenuItem(
                                 alignment: AlignmentDirectional.center,
                                 value: item,
                                 child: Text(
@@ -236,19 +167,7 @@ class _Add_newCompanyState extends State<Add_newCompany> {
                                       fontSize: 15),
                                 ));
                           }).toList(),
-                          onChanged: widget.onchanged2
-                          //  (newvalue) {
-                          // setState(() {
-                          //   SelectedExchangevalue = newvalue as String? ;
-                          //   if (widget.onchanged2 != null) {
-                          //     widget.onchanged2!(newvalue);
-                          //   }
-                          // });
-
-                          // SelectedCompany1();
-                          // CalculateOrder();
-                          // },
-                          ),
+                          onChanged: widget.onchanged2),
                     ),
                   ],
                 )
@@ -351,7 +270,6 @@ class _Add_newCompanyState extends State<Add_newCompany> {
               children: [
                 IconButton(
                     onPressed: widget.DeleteOntap, icon: Icon(Icons.delete)),
-                // IconButton(onPressed: widget.AddOntap, icon: Icon(Icons.add))
               ],
             ),
           ],

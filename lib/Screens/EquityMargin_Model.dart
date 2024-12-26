@@ -7,7 +7,6 @@ class Add_newCompany extends StatefulWidget {
   final TextFieldSearch textfiledserch;
   final List<String> items1;
   final List<String> items2;
-
   late final dynamic value1;
   late final dynamic value2;
   Function(dynamic)? onchanged1;
@@ -63,17 +62,7 @@ class _Add_newCompanyState extends State<Add_newCompany> {
     });
   }
 
-  // final FocusNode focusNode1 = FocusNode();
-  // final FocusNode focusNode2 = FocusNode();
-
-  // @override
-  // void dispose() {
-  //   focusNode1.dispose();
-  //   focusNode2.dispose();
-
-  //   super.dispose();
-  // }
-
+ 
   @override
   Widget build(
     BuildContext context,

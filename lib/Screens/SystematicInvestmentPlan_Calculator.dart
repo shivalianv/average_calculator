@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
+import 'package:stock_average_calculator/Utils/common_text.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 import 'dart:math';
 
@@ -158,9 +159,13 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
             },
             icon: Icon(
               Icons.arrow_back_ios,
+              size: 16,
               color: AppColors.primaryColorDark1,
             )),
-        title: Text("SIP"),
+        title: CommonText(
+          text: "SPI Calculator",
+          fontSize: 22,
+        ),
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -172,7 +177,8 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                   width: 350,
                   height: 200,
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primaryColorLight3),
+                    color: AppColors.primaryColorLight4,
+                    // border: Border.all(color: AppColors.primaryColorLight3),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Padding(
@@ -181,8 +187,8 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 200,
-                          height: 200,
+                          width: 150,
+                          height: 150,
                           child: PieChart(
                             PieChartData(
                                 sectionsSpace: 0,
@@ -197,7 +203,8 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                                       color: item['color'],
                                       showTitle: false,
                                       titleStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Sora',
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 14,
                                       ));
                                 }).toList()),
@@ -207,8 +214,7 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment
-                                  .start, // Align items horizontally
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
@@ -223,8 +229,10 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                                   ),
                                 ),
                                 Text(
-                                  "Investment: ",
+                                  "Investment",
                                   style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.w400,
                                       color: AppColors.primaryColorDark2,
                                       fontSize: 14),
                                 ),
@@ -246,8 +254,10 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                                     ),
                                   ),
                                   Text(
-                                    "Profit ",
+                                    "Profit",
                                     style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontWeight: FontWeight.w400,
                                         color: AppColors.primaryColorDark2,
                                         fontSize: 14),
                                   ),
@@ -263,7 +273,8 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
               Container(
                 height: 320,
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.primaryColorLight3),
+                  color: AppColors.primaryColorLight4,
+                  // border: Border.all(color: AppColors.primaryColorLight3),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(
@@ -277,14 +288,21 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                           Text(
                             "Monthly Investment:",
                             style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.primaryColorDark2,
-                                fontSize: 15),
+                                fontSize: 14),
                           ),
                           Container(
                             width: 150,
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: AppColors.primaryColorLight3),
+                               border: Border(
+                                    top: BorderSide.none,
+                                    right: BorderSide.none,
+                                    bottom: BorderSide(color: AppColors.primaryColorLight3),
+                                    left: BorderSide.none),
+                              // border: Border.all(
+                              //     color: AppColors.primaryColorLight3),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: CustomTextFormField(
@@ -317,14 +335,22 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                           Text(
                             "Expected Returns Rate:",
                             style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.primaryColorDark2,
-                                fontSize: 15),
+                                fontSize: 14),
                           ),
                           Container(
-                            width: 150,
+                            width: 145,
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: AppColors.primaryColorLight3),
+                              color: AppColors.primaryColorLight4,
+                               border: Border(
+                                    top: BorderSide.none,
+                                    right: BorderSide.none,
+                                    bottom: BorderSide(color: AppColors.primaryColorLight3),
+                                    left: BorderSide.none),
+                              // border: Border.all(
+                              //     color: AppColors.primaryColorLight3),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: CustomTextFormField(
@@ -357,13 +383,21 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                             "Time Period :",
                             style: TextStyle(
                                 color: AppColors.primaryColorDark2,
-                                fontSize: 15),
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14),
                           ),
                           Container(
                             width: 150,
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: AppColors.primaryColorLight3),
+                              color: AppColors.primaryColorLight4,
+                               border: Border(
+                                    top: BorderSide.none,
+                                    right: BorderSide.none,
+                                    bottom: BorderSide(color: AppColors.primaryColorLight3),
+                                    left: BorderSide.none),
+                              // border: Border.all(
+                              //     color: AppColors.primaryColorLight3),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: CustomTextFormField(
@@ -397,7 +431,8 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
               Container(
                 height: 150,
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.primaryColorLight3),
+                  color: AppColors.primaryColorLight4,
+                  // border: Border.all(color: AppColors.primaryColorLight3),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(
@@ -409,16 +444,20 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Investment Amount',
+                            'Investment:',
                             style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.primaryColorDark2,
-                                fontSize: 15),
+                                fontSize: 14),
                           ),
                           Text(
                             '$roundSipinve',
                             style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.primaryColorDark,
-                                fontSize: 15),
+                                fontSize: 14),
                           ),
                         ],
                       ),
@@ -429,14 +468,18 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                           Text(
                             'Expected Rate: ',
                             style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.primaryColorDark2,
-                                fontSize: 15),
+                                fontSize: 14),
                           ),
                           Text(
                             '$roundSipestr',
                             style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.primaryColorDark,
-                                fontSize: 15),
+                                fontSize: 14),
                           ),
                         ],
                       ),
@@ -448,13 +491,15 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                             'Total Value: ',
                             style: TextStyle(
                                 color: AppColors.primaryColorDark2,
-                                fontSize: 15),
+                                fontSize: 14),
                           ),
                           Text(
                             '$roundSipValue',
                             style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.primaryColorDark,
-                                fontSize: 15),
+                                fontSize: 14),
                           ),
                         ],
                       ),
@@ -482,7 +527,8 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
                             "Calculate",
                             style: TextStyle(
                               fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.w600,
                             ),
                           ))),
                   Container(

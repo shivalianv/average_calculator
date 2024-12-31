@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:stock_average_calculator/Screens/EquityMargin_Model.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
+import 'package:stock_average_calculator/Utils/common_text.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 import 'package:textfield_search/textfield_search.dart';
 
@@ -13,32 +13,38 @@ class EquityMargincalculator extends StatefulWidget {
 }
 
 class _EquityMargincalculatorState extends State<EquityMargincalculator> {
-  List<TextEditingController> SearchController = [];
   List<TextEditingController> OrderPriceController = [];
   List<TextEditingController> ShareValueController = [];
   List<FocusNode> focusNodes = [];
+
   List<NewCompanyModel> AddmultipleCompanylist = [];
+  List<TextEditingController> SearchController = [];
+
+  bool visiblelist=false;
 
   Map<String, double> CompanyBSEvalue = <String, double>{
     "Swiggy Ltd.": 594.80,
     "Enviro infra Engineers Ltd.": 380.50,
-    "Tata Motors Ltd": 784.70
+    "Adani Enterprises Ltd.": 2593.45,
+    "NTPC green Energy Ltd.": 128.50,
+    "Tata Motors Ltd.": 784.70
   };
 
   Map<String, double> CompanyNSEvalue = <String, double>{
     "Swiggy Ltd.": 596.35,
     "Enviro infra Engineers Ltd.": 269.62,
-    "Tata Motors Ltd": 784.80
+    "Adani Enterprises Ltd.": 2592.35,
+    "NTPC green Energy Ltd.": 128.35,
+    "Tata Motors Ltd.": 784.80
   };
 
-  // String? Selectedcompany= '';
+  String? Selectedcompany = '';
   String? SelectedBuysellvalue = 'BUY';
   String? SelectedExchangevalue = 'NSE';
   double MarginDelivery = 0.0;
   double MarginIntraday = 0.0;
   double TotalMarginDelivery = 0.0;
   double TotalMarginIntraday = 0.0;
-
 
   @override
   void initState() {
@@ -49,15 +55,24 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
       print("FilteredCompaniesList.........$FilteredCompaniesList");
     });
 
-    SearchController = List.generate(AddmultipleCompanylist.length, (index) => TextEditingController());
-    OrderPriceController = List.generate(AddmultipleCompanylist.length, (index) => TextEditingController());
-    ShareValueController = List.generate(AddmultipleCompanylist.length, (index) => TextEditingController());
-    focusNodes = List.generate(AddmultipleCompanylist.length, (index) => FocusNode());
+    SearchController = List.generate(
+        AddmultipleCompanylist.length, (index) => TextEditingController());
+    OrderPriceController = List.generate(
+        AddmultipleCompanylist.length, (index) => TextEditingController());
+    ShareValueController = List.generate(
+        AddmultipleCompanylist.length, (index) => TextEditingController());
+    focusNodes =
+        List.generate(AddmultipleCompanylist.length, (index) => FocusNode());
 
     if (AddmultipleCompanylist.isEmpty) {
       AddmultipleCompanylist.add(NewCompanyModel(
-          textfiledserch: TextFieldSearch(
-              label: 'Search Company', controller: TextEditingController()),
+        customtextseach:  CustomTextFormField(
+            focusNode: FocusNode(),
+            keyboardType: TextInputType.emailAddress,
+            controller: TextEditingController(),
+          ),
+          // textfiledserch: TextFieldSearch(
+          //     label: 'Search Company', controller: TextEditingController()),
           customtextfield1: CustomTextFormField(
             focusNode: FocusNode(),
             keyboardType: TextInputType.emailAddress,
@@ -84,26 +99,28 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
 
   Future<void> AddCompany(int index) async {
     setState(() {
-    //   if (SearchController.isEmpty || SearchController.length <= index) {
-    //     SearchController.add(TextEditingController());
-    //   }
-    //   if (OrderPriceController.isEmpty ||
-    //       OrderPriceController.length <= index) {
-    //     OrderPriceController.add(TextEditingController());
-    //   }
-    //   if (ShareValueController.isEmpty ||
-    //       ShareValueController.length <= index) {
-    //     ShareValueController.add(TextEditingController());
-    //   }
-    //   if (focusNodes.isEmpty ||
-    //       focusNodes.length <= index) {
-    //     focusNodes.add(FocusNode());
-    //   }
+      //   if (SearchController.isEmpty || SearchController.length <= index) {
+      //     SearchController.add(TextEditingController());
+      //   }
+      //   if (OrderPriceController.isEmpty ||
+      //       OrderPriceController.length <= index) {
+      //     OrderPriceController.add(TextEditingController());
+      //   }
+      //   if (ShareValueController.isEmpty ||
+      //       ShareValueController.length <= index) {
+      //     ShareValueController.add(TextEditingController());
+      //   }
+      //   if (focusNodes.isEmpty ||
+      //       focusNodes.length <= index) {
+      //     focusNodes.add(FocusNode());
+      //   }
 
-   
       AddmultipleCompanylist.add(NewCompanyModel(
-          textfiledserch: TextFieldSearch(
-              label: 'Search Company', controller: SearchController.last),
+          // textfiledserch: TextFieldSearch(
+          //     label: 'Search Company', controller: SearchController.last),
+              customtextseach: CustomTextFormField(focusNode: focusNodes.last,
+            keyboardType: TextInputType.emailAddress,
+            controller: SearchController.last,),
           customtextfield1: CustomTextFormField(
             focusNode: focusNodes.last,
             keyboardType: TextInputType.emailAddress,
@@ -134,23 +151,23 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
     setState(() {
       if (SelectedExchangevalue == 'NSE') {
         if (SelectedBuysellvalue == "BUY") {
-          print("selectedexvalue!!!!!!!!!$selectedCompany");
+          // print("selectedexvalue!!!!!!!!!$selectedCompany");
           OrderPriceController[index].text =
               CompanyNSEvalue[selectedCompany]?.toString() ?? '0.0';
-          print(
-              "changed CompanyNSEvalue orderpricevalue>>>>>>${OrderPriceController[index].text}");
+          // print(
+          //     "changed CompanyNSEvalue orderpricevalue>>>>>>${OrderPriceController[index].text}");
         } else if (SelectedBuysellvalue == "SELL") {
           OrderPriceController[index].text = '0.0';
-          print(
-              "changed CompanyNSEvalue orderpricevalue>>>>>>${OrderPriceController[index].text}");
+          // print(
+          //     "changed CompanyNSEvalue orderpricevalue>>>>>>${OrderPriceController[index].text}");
         }
       } else if (SelectedExchangevalue == 'BSE') {
         if (SelectedBuysellvalue == "BUY") {
-          print("selectedexvalue!!!!!!!!!$selectedCompany");
+          // print("selectedexvalue!!!!!!!!!$selectedCompany");
           OrderPriceController[index].text =
               CompanyBSEvalue[selectedCompany]?.toString() ?? '0.0';
-          print(
-              "changed CompanyBSEvalue orderpricevalue>>>>>>>>>>>>${OrderPriceController[index].text}");
+          // print(
+          //     "changed CompanyBSEvalue orderpricevalue>>>>>>>>>>>>${OrderPriceController[index].text}");
         } else if (SelectedBuysellvalue == "SELL") {
           OrderPriceController[index].text = '0.0';
         }
@@ -159,23 +176,22 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
   }
 
   Future<void> CalculateOrder() async {
-    if (OrderPriceController.isEmpty ||
-        ShareValueController.isEmpty ) {
+    if (OrderPriceController.isEmpty || ShareValueController.isEmpty) {
       print("Error: OrderPriceController or ShareValueController is empty");
       return;
     }
 
     List<TextEditingController> Ordervalue = OrderPriceController;
     List<TextEditingController> Sharevalue = ShareValueController;
-    print("print Oredervalue>>>>>>$Ordervalue");
-    print("print Sharevalue<<<<<<<<<<<$Sharevalue");
+    // print("print Oredervalue>>>>>>$Ordervalue");
+    // print("print Sharevalue<<<<<<<<<<<$Sharevalue");
 
     List<double> MarginDeliveryList = [];
     List<double> MarginIntradayList = [];
-    List<String> SelectedBuysellList = [];
-    print("print MarginDeliveryList>>>>>>$MarginDeliveryList");
-    print("print MarginDeliveryList!!!!!!!!!!!$MarginIntradayList");
-    print("print SelectedBuysellList<<<<<<<<<<<$SelectedBuysellList");
+    // List<String> SelectedBuysellList = [];
+    // print("print MarginDeliveryList>>>>>>$MarginDeliveryList");
+    // print("print MarginDeliveryList!!!!!!!!!!!$MarginIntradayList");
+    // print("print SelectedBuysellList<<<<<<<<<<<$SelectedBuysellList");
 
     double parseToDouble(String input) {
       String cleanedInput = input.replaceAll(RegExp(r'[^0-9.]'), '');
@@ -185,34 +201,38 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
     for (int i = 0; i < Ordervalue.length; i++) {
       double OrderPrice = parseToDouble(Ordervalue[i].text);
       double ShareValue = parseToDouble(Sharevalue[i].text);
-      print("print OrderPrice%%%%%%%%%%%$OrderPrice");
-      print("print Sharevalue@@@@@@$Sharevalue");
+      // print("print OrderPrice%%%%%%%%%%%$OrderPrice");
+      // print("print Sharevalue@@@@@@$Sharevalue");
 
       double RoundDelivery = OrderPrice * ShareValue;
       MarginDelivery = double.parse(RoundDelivery.toStringAsFixed(2));
       MarginDeliveryList.add(MarginDelivery);
-      print("margindelivery,,,,,,,,,,$MarginDelivery");
-      print("margindeliveryList,,,,,,,,,,$MarginDeliveryList");
-      print("calculate margindelivery??????????$RoundDelivery");
+      // print("margindelivery,,,,,,,,,,$MarginDelivery");
+      // print("margindeliveryList,,,,,,,,,,$MarginDeliveryList");
+      // print("calculate margindelivery??????????$RoundDelivery");
 
       double RoundIntraday = OrderPrice * ShareValue * (20 / 100);
       MarginIntraday = double.parse(RoundIntraday.toStringAsFixed(2));
 
       MarginIntradayList.add(MarginIntraday);
-      print(" marginintraday,,,,,,,,,,$MarginIntraday");
-      print(" marginintradayList,,,,,,,,,,$MarginIntradayList");
-      print("calculated marginintrada/////////$RoundIntraday");
+      // print(" marginintraday,,,,,,,,,,$MarginIntraday");
+      // print(" marginintradayList,,,,,,,,,,$MarginIntradayList");
+      // print("calculated marginintrada/////////$RoundIntraday");
 
-      print("OrderPriceController[$i]: ${Ordervalue[i].text}");
-      print("ShareValueController[$i]: ${Sharevalue[i].text}");
+      // print("OrderPriceController[$i]: ${Ordervalue[i].text}");
+      // print("ShareValueController[$i]: ${Sharevalue[i].text}");
     }
+    double roundTotalDelivery= MarginDeliveryList.fold(0.0, (sum, Element) => sum + Element); 
+    TotalMarginDelivery = double.parse(roundTotalDelivery.toStringAsFixed(2));
 
-    TotalMarginDelivery =
-        MarginDeliveryList.fold(0.0, (sum, Element) => sum + Element);
-    TotalMarginIntraday =
-        MarginIntradayList.fold(0.0, (sum, Element) => sum + Element);
-    print("Total Margin Delivery:::::::::::$TotalMarginDelivery");
-    print("Total Margin Intraday:::::::::::$TotalMarginIntraday");
+    double roundTotalIntraday= MarginIntradayList.fold(0.0, (sum, Element) => sum + Element);
+    TotalMarginIntraday = double.parse(roundTotalIntraday.toStringAsFixed(2));
+        
+    
+        
+        
+    // print("Total Margin Delivery:::::::::::$TotalMarginDelivery");
+    // print("Total Margin Intraday:::::::::::$TotalMarginIntraday");
 
     setState(() {});
   }
@@ -231,15 +251,18 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
 
   @override
   void dispose() {
+ 
+ 
+    
+    // for (var company in AddmultipleCompanylist) {
+    //   company.focusNode.dispose();
+    // }
     for (int i = 0; i < AddmultipleCompanylist.length; i++) {
       SearchController[i].dispose();
       OrderPriceController[i].dispose();
       ShareValueController[i].dispose();
       focusNodes[i].dispose();
     }
-
-
-
     super.dispose();
   }
 
@@ -248,8 +271,9 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
     return Scaffold(
       backgroundColor: AppColors.primaryBackgroundColor,
       appBar: AppBar(
-        title: Text(
-          "Equity Margin Calculator",
+        title: CommonText(
+          text: "Equity Margin Calculator",
+          fontSize: 22,
         ),
         leading: IconButton(
             onPressed: () {
@@ -264,31 +288,29 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
             icon: Icon(Icons.add),
             onPressed: () {
               setState(() {
-                AddCompany(10);
+                AddCompany(6);
               });
             },
           ),
         ],
         backgroundColor: AppColors.primaryBackgroundColor,
       ),
-      body: 
-      ListView.builder(
-        shrinkWrap: true,
+      body: ListView.builder(
+          shrinkWrap: true,
           itemCount: AddmultipleCompanylist.length,
           itemBuilder: (context, index) {
             NewCompanyModel newcompanyadd = AddmultipleCompanylist[index];
-            print("newcompany,,,,,,,$newcompanyadd");
             List<String> FilteredCompaniesList = [
               ...CompanyBSEvalue.keys,
               ...CompanyNSEvalue.keys
             ].toSet().toList();
-            print("FilteredCompaniesList??????????$FilteredCompaniesList");
 
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.primaryColorLight2),
+                  color: AppColors.primaryColorLight4,
+                  // border: Border.all(color: AppColors.primaryColorLight3),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(
@@ -302,96 +324,106 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                           Text(
                             "Company1:",
                             style: TextStyle(
-                                color: AppColors.primaryColorDark2,
-                                fontSize: 14),
+                              color: AppColors.primaryColorDark3,
+                              fontSize: 14,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                           IconButton(
                               onPressed: () {
                                 if (mounted) {
-                                    deleteCompany(index);
-                                  }
+                                  deleteCompany(index);
+                                }
                                 setState(() {
                                   print("pressed remove");
-                                  
                                 });
                               },
                               icon: Icon(Icons.cancel)),
-                        
                         ],
                       ),
                       Container(
                         decoration: BoxDecoration(
                           border:
-                              Border.all(color: AppColors.primaryColorLight2),
+                              Border.all(color: AppColors.primaryColorLight3),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: GestureDetector(
-                          child: 
-                          //  CustomTextFormField(
-                          //         autofocus: true,
-                          //         keyboardType: TextInputType.emailAddress,
-                          //         focusNode: FocusNode(),
-                          //         controller: SearchController[index],
-                          //         onchange: (value) {
-                          //           DropdownButtonFormField(
-                          //           decoration: InputDecoration(
-                          //               border: InputBorder.none),
-                          //           value: SearchController[index],
-                          //           items: FilteredCompaniesList
-                          //               .map((String searchcompany) {
-                          //             return DropdownMenuItem<String>(
-                          //                 value: searchcompany,
-                          //                 child: Center(
-                          //                   child: Text(
-                          //                     searchcompany,
-                          //                     style: TextStyle(
-                          //                         color: AppColors
-                          //                             .primaryColorDark1,
-                          //                         fontSize: 15),
-                          //                   ),
-                          //                 ));
-                          //           }).toList(),
-                          //           onChanged: (newvalue) {
-                          //             setState(() {
-                          //               Selectedcompany = newvalue.toString();
-                          //               SearchController[index].text=newvalue.toString();
-                          //               print(
-                          //                   "selectedropdownvalue.....$Selectedcompany");
-                          //               SelectedCompany1(index,
-                          //                   SelectedExchangevalue ?? '0.0');
-                          //               // SelectedCompany1(SelectedBuysellvalue);
-                          //             });
-                          //             CalculateOrder();
-                          //           });
-                          //           // setState(() {
-                          //           //   SearchController[index].text = value;
-                          //           //   SelectedCompany1(index,
-                          //           //       SelectedExchangevalue ?? '0.0');
-                          //           //   CalculateOrder();
-                          //           // });
-                          //         },
-                          //       ),
-                          TextFieldSearch(
-                            decoration:
-                                InputDecoration(border: InputBorder.none),
-                            initialList: FilteredCompaniesList,
-                            controller: SearchController[index],
-                            label: 'Search Company',                            
-                            textStyle: TextStyle(
-                                color: AppColors.primaryColorDark1,
-                                fontSize: 14),
-                          ),
-                          onTap: () {
-                            
-                            SelectedCompany1(
-                                index, SelectedExchangevalue ?? '0.0');
-                           
-                            setState(() {
-                              print(
-                                  "selected comapny...${SearchController[index].text}");
-                            });
-                          },
+                        child: 
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CustomTextFormField(
+                                      keyboardType: TextInputType.emailAddress,
+                                      focusNode: FocusNode(),
+                                      controller: SearchController[index],
+                                      icon: Icons.search,
+                                      errorMessage: 'Company Not Found',
+                                      onClick: (){
+                                        setState(() {
+                                          visiblelist = true;
+                                        });
+                                      },
+                                      onchange: (value) {
+                                        setState(() {
+                                          SearchController[index].text = value;
+                                          SelectedCompany1(index,
+                                              SelectedExchangevalue ?? '0.0');
+                                          CalculateOrder();
+                                        });
+                                         setState(() {
+                                          visiblelist = true;
+                                        });
+                                      },
+                                    ),
+                                   if(visiblelist)
+                                    Container(
+                                      height: 200,
+                                      child: ListView.builder(
+                                      itemCount: FilteredCompaniesList.length,
+                                      itemBuilder: (BuildContext context,int index){
+                                        return ListTile(
+                                          title: Text(FilteredCompaniesList[index]),
+                                          onTap: (){
+                                            SearchController[0].text=FilteredCompaniesList[index];
+                                            
+                                            print("Selected company:${FilteredCompaniesList[index]}");
+                                            setState(() {
+                                              visiblelist = false; 
+                                            });
+                                          },
+                                        );
+                                      
+                                                                          }),
+                                    )
+                          ],
                         ),
+                             
+                        // GestureDetector(
+                        //   child: TextFieldSearch(
+                        //     decoration:
+                        //         InputDecoration(border: InputBorder.none),
+                        //     controller: SearchController[index],
+                        //     initialList: FilteredCompaniesList,
+                        //     label: 'Search Company',
+                        //     textStyle: TextStyle(
+                        //         color: AppColors.primaryColorDark1,
+                        //         fontFamily: 'Sora',
+                        //         fontWeight: FontWeight.w400,
+                        //         fontSize: 14),
+                        //   ),
+                        //   onTap: () {
+                        //     FocusScope.of(context)
+                        //         .requestFocus(focusNodes[index]);
+                        //     // FocusScope.of(context).dispose();
+                        //     SelectedCompany1(
+                        //         index, SelectedExchangevalue ?? '0.0');
+
+                        //     setState(() {
+                        //       print(
+                        //           "selected comapny...${SearchController[index].text}");
+                        //     });
+                        //   },
+                        // ),
                       ),
                       SizedBox(
                         height: 5,
@@ -404,20 +436,23 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                               Text(
                                 "BUY/SELL:",
                                 style: TextStyle(
-                                    color: AppColors.primaryColorDark2,
-                                    fontSize: 15),
+                                    color: AppColors.primaryColorDark3,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14),
                               ),
                               Container(
                                 width: 150,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: AppColors.primaryColorLight2),
+                                      color: AppColors.primaryColorLight3),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: DropdownButtonFormField(
                                     decoration: InputDecoration(
                                         border: InputBorder.none),
                                     value: SelectedBuysellvalue,
+                                    focusNode: FocusNode(),
                                     items: ['BUY', 'SELL']
                                         .map((String buysell_list) {
                                       return DropdownMenuItem<String>(
@@ -428,7 +463,9 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                               style: TextStyle(
                                                   color: AppColors
                                                       .primaryColorDark1,
-                                                  fontSize: 15),
+                                                  fontFamily: 'Sora',
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14),
                                             ),
                                           ));
                                     }).toList(),
@@ -439,7 +476,6 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                             "selectedropdownvalue.....$SelectedBuysellvalue");
                                         SelectedCompany1(index,
                                             SelectedExchangevalue ?? '0.0');
-                                        // SelectedCompany1(SelectedBuysellvalue);
                                       });
                                       CalculateOrder();
                                     }),
@@ -451,20 +487,23 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                               Text(
                                 "Exchange:",
                                 style: TextStyle(
-                                    color: AppColors.primaryColorDark2,
-                                    fontSize: 15),
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.primaryColorDark3,
+                                    fontSize: 14),
                               ),
                               Container(
                                 width: 150,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: AppColors.primaryColorLight2),
+                                      color: AppColors.primaryColorLight3),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: DropdownButtonFormField(
                                     alignment: AlignmentDirectional.center,
                                     decoration: InputDecoration(
                                         border: InputBorder.none),
+                                    focusNode: FocusNode(),
                                     value: SelectedExchangevalue,
                                     items: ['NSE', 'BSE']
                                         .map((String exchange_list) {
@@ -475,9 +514,11 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                           child: Text(
                                             exchange_list,
                                             style: TextStyle(
+                                                fontFamily: 'Sora',
+                                                fontWeight: FontWeight.w400,
                                                 color:
                                                     AppColors.primaryColorDark1,
-                                                fontSize: 15),
+                                                fontSize: 14),
                                           ));
                                     }).toList(),
                                     onChanged: (newvalue2) {
@@ -485,11 +526,9 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                         SelectedExchangevalue = newvalue2!;
                                         print(
                                             "selectedropdownvalue.....$SelectedExchangevalue");
-                                        // SelectedCompany1(SelectedExchangevalue);
                                         SelectedCompany1(index,
                                             SelectedExchangevalue ?? '0.0');
                                       });
-
                                       CalculateOrder();
                                     }),
                               ),
@@ -508,15 +547,17 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                               Text(
                                 "Order Price:",
                                 style: TextStyle(
-                                    color: AppColors.primaryColorDark2,
-                                    fontSize: 15),
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.primaryColorDark3,
+                                    fontSize: 14),
                               ),
                               Container(
                                 width: 150,
                                 height: 50,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: AppColors.primaryColorLight2),
+                                      color: AppColors.primaryColorLight3),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: CustomTextFormField(
@@ -543,18 +584,20 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                               Text(
                                 "Share:",
                                 style: TextStyle(
-                                    color: AppColors.primaryColorDark2,
-                                    fontSize: 15),
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.primaryColorDark3,
+                                    fontSize: 14),
                               ),
                               Container(
                                 width: 150,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: AppColors.primaryColorLight2),
+                                      color: AppColors.primaryColorLight3),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: CustomTextFormField(
-                                  autofocus: true,
+                                  // autofocus: true,
                                   keyboardType: TextInputType.number,
                                   focusNode: FocusNode(),
                                   controller: ShareValueController[index],
@@ -586,18 +629,28 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                               Text(
                                 "MARGIN FOR DELIVERY:",
                                 style: TextStyle(
-                                    color: AppColors.primaryColorDark2,
-                                    fontSize: 15),
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.primaryColorDark3,
+                                    fontSize: 14),
                               ),
                               Container(
                                 width: 170,
                                 height: 50,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: AppColors.primaryColorLight2),
+                                      color: AppColors.primaryColorLight3),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Center(child: Text("$MarginDelivery")),
+                                child: Center(
+                                    child: Text(
+                                  "$MarginDelivery",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                )),
                                 // child: Text(
                                 //     SelectedBuysellList == "SELL"
                                 //         ? '0.00'
@@ -609,19 +662,26 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                               Text(
                                 "MARGIN FOR INTRADAY:",
                                 style: TextStyle(
-                                    color: AppColors.primaryColorDark2,
-                                    fontSize: 15),
+                                    color: AppColors.primaryColorDark3,
+                                    fontSize: 14),
                               ),
                               Container(
                                 width: 170,
                                 height: 50,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: AppColors.primaryColorLight2),
+                                      color: AppColors.primaryColorLight3),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
-                                    child: Text("$MarginIntraday")),
+                                    child: Text(
+                                  "$MarginIntraday",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                )),
                               ),
                             ],
                           ),
@@ -631,18 +691,28 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                               Text(
                                 "Total",
                                 style: TextStyle(
-                                    color: AppColors.primaryColorDark2,
-                                    fontSize: 15),
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.primaryColorDark3,
+                                    fontSize: 14),
                               ),
                               Container(
                                 width: 130,
                                 height: 50,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: AppColors.primaryColorLight2),
+                                      color: AppColors.primaryColorLight3),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Center(child: Text("$TotalMarginDelivery")),
+                                child: Center(
+                                    child: Text(
+                                  "$TotalMarginDelivery",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                )),
                               ),
                               SizedBox(
                                 height: 30,
@@ -652,11 +722,18 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                   height: 50,
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: AppColors.primaryColorLight2),
+                                        color: AppColors.primaryColorLight3),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child:
-                                      Center(child: Text("$TotalMarginIntraday"))),
+                                  child: Center(
+                                      child: Text(
+                                    "$TotalMarginIntraday",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ))),
                             ],
                           ),
                         ],
@@ -684,8 +761,9 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                   child: Text(
                                     "Calculate",
                                     style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ))),
                           Container(

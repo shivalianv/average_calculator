@@ -4,7 +4,8 @@ import 'package:textfield_search/textfield_search.dart';
 
 
 class NewCompanyModel {
-  final TextFieldSearch textfiledserch;
+  final CustomTextFormField customtextseach;
+  // final TextFieldSearch textfiledserch;
   
   final CustomTextFormField customtextfield1;
   final CustomTextFormField customtextfield2;
@@ -15,7 +16,7 @@ class NewCompanyModel {
   final Function(String)? onSearchChanged; 
 
   NewCompanyModel({
-    required this.textfiledserch,
+    required this.customtextseach,
     
     required this.customtextfield1,
     required this.customtextfield2,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
+import 'package:stock_average_calculator/Utils/common_text.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 
 
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppColors.primaryBackgroundColor,
       appBar: AppBar(
-        title: Text("Home Page"),
+        title: CommonText(text: 'Home Page',fontSize: 22,),
         backgroundColor: Colors.white,
       ),
       body: Center(

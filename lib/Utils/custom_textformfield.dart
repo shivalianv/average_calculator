@@ -39,7 +39,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(
-          color: AppColors.primaryColorDark2,
+          color: AppColors.primaryColorDark,
           fontSize: 15,
         ),
         strutStyle: StrutStyle(),
@@ -119,8 +119,10 @@ class CustomButton extends StatelessWidget {
                   text,
                   style: TextStyle(
                     color: AppColors.primaryColorLight3,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontFamily: 'Sora',
+                       fontWeight: FontWeight.w600,
+
                   ),
                 ),
         ),

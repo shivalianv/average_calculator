@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
+import 'package:stock_average_calculator/Utils/common_text.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 import 'dart:math';
 
@@ -162,14 +163,16 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
     return Scaffold(
         backgroundColor: AppColors.primaryBackgroundColor,
         appBar: AppBar(
-          title: Text(
-            "Mutual Fund Returns",
+          title: CommonText(
+            text: "Mutual Fund Returns",
+            fontSize: 22,
           ),
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
               icon: Icon(
+                size: 16,
                 Icons.arrow_back_ios,
                 color: AppColors.primaryColorDark1,
               )),
@@ -186,7 +189,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                     width: 350,
                     height: 200,
                     decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.primaryColorLight3),
+                      color: AppColors.primaryColorLight4,
+                      // border: Border.all(color: AppColors.primaryColorLight3),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
@@ -195,8 +199,9 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: 200,
-                            height: 200,
+                            width: 150,
+                            height: 150,
+                            // color: const Color.fromARGB(255, 236, 248, 253),
                             child: PieChart(
                               PieChartData(
                                   sectionsSpace: 0,
@@ -221,8 +226,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Row(
-                                 mainAxisAlignment: MainAxisAlignment.start, // Align items horizontally
-      crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -235,7 +240,15 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                                       width: 10,
                                     ),
                                   ),
-                                  Text("Investment ",),
+                                  Text(
+                                    "Investment",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.primaryColorDark1,
+                                    ),
+                                  ),
                                 ],
                               ),
                               Padding(
@@ -246,16 +259,23 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
                                         height: 10,
-                                         decoration: BoxDecoration(
-                                        color: AppColors.GreenColor,
-                                          borderRadius: BorderRadius.circular(10),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.GreenColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         width: 10,
                                       ),
                                     ),
-                                    Text("Profit ",style: TextStyle(
-                                    color: AppColors.primaryColorDark2,
-                                    fontSize: 14),),
+                                    Text(
+                                      "Profit ",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'Sora',
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.primaryColorDark1,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -269,7 +289,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primaryColorLight2),
+                    color: AppColors.primaryColorLight4,
+                    // border: Border.all(color: AppColors.primaryColorLight3),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Padding(
@@ -283,14 +304,19 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                             Text(
                               "Total Investment :",
                               style: TextStyle(
+                                 fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColorDark2,
-                                  fontSize: 15),
+                                  fontSize: 14),
                             ),
                             Container(
                               width: 150,
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: AppColors.primaryColorLight3),
+                                 border: Border(
+                                    top: BorderSide.none,
+                                    right: BorderSide.none,
+                                    bottom: BorderSide(color: AppColors.primaryColorLight3),
+                                    left: BorderSide.none),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: CustomTextFormField(
@@ -321,16 +347,23 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Expected Returns Rat:",
+                              "Expected Returns Rate:",
                               style: TextStyle(
+                                 fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColorDark2,
-                                  fontSize: 15),
+                                  fontSize: 14),
                             ),
                             Container(
-                              width: 150,
+                              width: 145,
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: AppColors.primaryColorLight3),
+                                border: Border(
+                                    top: BorderSide.none,
+                                    right: BorderSide.none,
+                                    bottom: BorderSide(color: AppColors.primaryColorLight3),
+                                    left: BorderSide.none),
+                                // border: Border.all(
+                                //     color: AppColors.primaryColorLight3),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: CustomTextFormField(
@@ -364,14 +397,21 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                               "Time Period :",
                               style: TextStyle(
                                   color: AppColors.primaryColorDark2,
-                                  fontSize: 15),
+                                   fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
+                                  fontSize: 14),
                             ),
                             Container(
                               width: 150,
                               decoration: BoxDecoration(
-                                color: AppColors.primaryBackgroundColor,
-                                border: Border.all(
-                                    color: AppColors.primaryColorLight3),
+                                color: AppColors.primaryColorLight4,
+                                 border: Border(
+                                    top: BorderSide.none,
+                                    right: BorderSide.none,
+                                    bottom: BorderSide(color: AppColors.primaryColorLight3),
+                                    left: BorderSide.none),
+                                // border: Border.all(
+                                //     color: AppColors.primaryColorLight3),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: CustomTextFormField(
@@ -401,14 +441,13 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                     ),
                   ),
                 ),
-                                        SizedBox(height: 10),
-
+                SizedBox(height: 10),
                 Container(
                   height: 120,
                   decoration: BoxDecoration(
-                    color: AppColors.primaryBackgroundColor,
+                    color: AppColors.primaryColorLight4,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.primaryColorLight3),
+                    // border: Border.all(color: AppColors.primaryColorLight3),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -421,13 +460,16 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                             Text(
                               'Investment',
                               style: TextStyle(
+                                 fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColorDark2,
-                                  fontSize: 15),
+                                  fontSize: 14),
                             ),
                             Text(
                               '$round_inve',
-                                style: TextStyle(
-                                  color: AppColors.primaryColorDark, fontSize: 15),
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark,
+                                  fontSize: 15),
                             ),
                           ],
                         ),
@@ -438,13 +480,16 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                             Text(
                               'Expected Rat: ',
                               style: TextStyle(
+                                 fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColorDark2,
-                                  fontSize: 15),
+                                  fontSize: 14),
                             ),
                             Text(
                               '$round_estr',
-                               style: TextStyle(
-                                  color: AppColors.primaryColorDark, fontSize: 15),
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark,
+                                  fontSize: 15),
                             ),
                           ],
                         ),
@@ -454,14 +499,16 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                           children: [
                             Text(
                               'Total Value: ',
-                              style: TextStyle(
+                              style: TextStyle( fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColorDark2,
-                                  fontSize: 15),
+                                  fontSize: 14),
                             ),
                             Text(
                               '$round_val',
-                                style: TextStyle(
-                                  color: AppColors.primaryColorDark, fontSize: 15),
+                              style: TextStyle(
+                                  color: AppColors.primaryColorDark,
+                                  fontSize: 15),
                             ),
                           ],
                         ),
@@ -474,9 +521,9 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                   width: 360,
                   height: 360,
                   decoration: BoxDecoration(
-                    color: AppColors.primaryBackgroundColor,
+                    color: AppColors.primaryColorLight4,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.primaryColorLight3),
+                    // border: Border.all(color: AppColors.primaryColorLight3),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -547,8 +594,9 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                   children: [
                     Container(
                         width: 150,
-                       decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primaryColorLight3),
+                        decoration: BoxDecoration(
+                            border:
+                                Border.all(color: AppColors.primaryColorLight3),
                             borderRadius: BorderRadius.circular(10),
                             color: AppColors.primaryBackgroundColor),
                         child: TextButton(
@@ -560,7 +608,9 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                               "Calculate",
                               style: TextStyle(
                                 fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                 fontFamily: 'Sora',
+                                fontWeight: FontWeight.w600,
+                                
                               ),
                             ))),
                     Container(

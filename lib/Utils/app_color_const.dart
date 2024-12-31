@@ -24,6 +24,7 @@ class AppColors {
   static Color primaryColorLight = Color.fromARGB(255, 171, 168, 200);
   static Color primaryColorLight2 = Color.fromARGB(255, 213, 212, 237);
   static Color primaryColorLight3 = Color.fromARGB(255, 241, 241, 249);
+  static Color primaryColorLight4 = Color.fromARGB(2255, 250, 250, 255);
 
 //Dark Color
   static Color primaryColorDark = Color.fromARGB(255, 58, 58, 58);

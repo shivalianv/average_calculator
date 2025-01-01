@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/common_text.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
@@ -214,11 +215,10 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                                         radius: 30,
                                         value: item['value'],
                                         color: item['color'],
-                                        showTitle: false,
-                                        titleStyle: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ));
+                                        // showTitle: false,
+                                        // titleStyle:
+                                        //  GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, )
+                                         );
                                   }).toList()),
                             ),
                           ),
@@ -242,12 +242,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                                   ),
                                   Text(
                                     "Investment",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Sora',
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.primaryColorDark1,
-                                    ),
+                                                                    // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark1, ),
+
                                   ),
                                 ],
                               ),
@@ -269,12 +265,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                                     ),
                                     Text(
                                       "Profit ",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'Sora',
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.primaryColorDark1,
-                                      ),
+                                                                    //  style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark1, ),
+
                                     ),
                                   ],
                                 ),
@@ -303,11 +295,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                           children: [
                             Text(
                               "Total Investment :",
-                              style: TextStyle(
-                                 fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                  color: AppColors.primaryColorDark2,
-                                  fontSize: 14),
+                                                            //  style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+
                             ),
                             Container(
                               width: 150,
@@ -348,11 +337,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                           children: [
                             Text(
                               "Expected Returns Rate:",
-                              style: TextStyle(
-                                 fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                  color: AppColors.primaryColorDark2,
-                                  fontSize: 14),
+                                                              // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+
                             ),
                             Container(
                               width: 145,
@@ -395,11 +381,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                           children: [
                             Text(
                               "Time Period :",
-                              style: TextStyle(
-                                  color: AppColors.primaryColorDark2,
-                                   fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                  fontSize: 14),
+                                                              // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+
                             ),
                             Container(
                               width: 150,
@@ -459,11 +442,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                           children: [
                             Text(
                               'Investment',
-                              style: TextStyle(
-                                 fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                  color: AppColors.primaryColorDark2,
-                                  fontSize: 14),
+                                                            //  style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+
                             ),
                             Text(
                               '$round_inve',
@@ -479,11 +459,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                           children: [
                             Text(
                               'Expected Rat: ',
-                              style: TextStyle(
-                                 fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                  color: AppColors.primaryColorDark2,
-                                  fontSize: 14),
+                                                            //  style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+
                             ),
                             Text(
                               '$round_estr',
@@ -499,16 +476,13 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                           children: [
                             Text(
                               'Total Value: ',
-                              style: TextStyle( fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                  color: AppColors.primaryColorDark2,
-                                  fontSize: 14),
+                                                            // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+
                             ),
                             Text(
                               '$round_val',
-                              style: TextStyle(
-                                  color: AppColors.primaryColorDark,
-                                  fontSize: 15),
+                                                              // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+
                             ),
                           ],
                         ),
@@ -606,12 +580,8 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                             },
                             child: Text(
                               "Calculate",
-                              style: TextStyle(
-                                fontSize: 18,
-                                 fontFamily: 'Sora',
-                                fontWeight: FontWeight.w600,
-                                
-                              ),
+                                                            // style: GoogleFonts.sora(fontSize:18,fontWeight: FontWeight.w600,color: AppColors.primaryColorDark1, ),
+
                             ))),
                     Container(
                       width: 150,

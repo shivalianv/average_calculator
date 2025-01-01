@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:stock_average_calculator/Screens/EquityMargin_Model.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/common_text.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
-import 'package:textfield_search/textfield_search.dart';
 
 class EquityMargincalculator extends StatefulWidget {
   const EquityMargincalculator({super.key});
@@ -13,12 +13,18 @@ class EquityMargincalculator extends StatefulWidget {
 }
 
 class _EquityMargincalculatorState extends State<EquityMargincalculator> {
+  List<TextEditingController> SearchController = [];
   List<TextEditingController> OrderPriceController = [];
   List<TextEditingController> ShareValueController = [];
   List<FocusNode> focusNodes = [];
 
+  List<FocusNode> searchfocusNodes = [];
+  List<FocusNode> orderfocusNodes = [];
+  List<FocusNode> sharefocusNodes = [];
+  List<FocusNode> selectbuy_sellfocusNodes = [];
+  List<FocusNode> selectBSE_NSEvalue = [];
+
   List<NewCompanyModel> AddmultipleCompanylist = [];
-  List<TextEditingController> SearchController = [];
 
   bool visiblelist=false;
 
@@ -64,6 +70,17 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
     focusNodes =
         List.generate(AddmultipleCompanylist.length, (index) => FocusNode());
 
+    sharefocusNodes =
+        List.generate(AddmultipleCompanylist.length, (index) => FocusNode());
+    orderfocusNodes =
+        List.generate(AddmultipleCompanylist.length, (index) => FocusNode());
+    searchfocusNodes =
+        List.generate(AddmultipleCompanylist.length, (index) => FocusNode());
+    selectBSE_NSEvalue =
+        List.generate(AddmultipleCompanylist.length, (index) => FocusNode());
+    selectbuy_sellfocusNodes =
+        List.generate(AddmultipleCompanylist.length, (index) => FocusNode());
+
     if (AddmultipleCompanylist.isEmpty) {
       AddmultipleCompanylist.add(NewCompanyModel(
         customtextseach:  CustomTextFormField(
@@ -86,48 +103,37 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
           textMarginDelivery: '1000',
           textMarginIntraday: '2000',
           deleteOnTap: () => deleteCompany(0)));
-    }
-    print("AddmultipleCompanylist......${AddmultipleCompanylist}");
-    for (int i = 0; i < AddmultipleCompanylist.length; i++) {
-      SearchController.add(TextEditingController());
+    } SearchController.add(TextEditingController());
       OrderPriceController.add(TextEditingController());
       ShareValueController.add(TextEditingController());
       focusNodes.add(FocusNode());
-    }
+    print("AddmultipleCompanylist......${AddmultipleCompanylist}");
+    // for (int i = 0; i < AddmultipleCompanylist.length; i++) {
+    //   SearchController.add(TextEditingController());
+    //   OrderPriceController.add(TextEditingController());
+    //   ShareValueController.add(TextEditingController());
+    //   focusNodes.add(FocusNode());
+    // }
     print("AddmultipleCompanylist11......${AddmultipleCompanylist}");
   }
 
   Future<void> AddCompany(int index) async {
     setState(() {
-      //   if (SearchController.isEmpty || SearchController.length <= index) {
-      //     SearchController.add(TextEditingController());
-      //   }
-      //   if (OrderPriceController.isEmpty ||
-      //       OrderPriceController.length <= index) {
-      //     OrderPriceController.add(TextEditingController());
-      //   }
-      //   if (ShareValueController.isEmpty ||
-      //       ShareValueController.length <= index) {
-      //     ShareValueController.add(TextEditingController());
-      //   }
-      //   if (focusNodes.isEmpty ||
-      //       focusNodes.length <= index) {
-      //     focusNodes.add(FocusNode());
-      //   }
-
-      AddmultipleCompanylist.add(NewCompanyModel(
-          // textfiledserch: TextFieldSearch(
-          //     label: 'Search Company', controller: SearchController.last),
-              customtextseach: CustomTextFormField(focusNode: focusNodes.last,
+           AddmultipleCompanylist.add(NewCompanyModel(      
+              customtextseach: CustomTextFormField(
+              // focusNode: focusNodes.last,
+              focusNode: searchfocusNodes.last,
             keyboardType: TextInputType.emailAddress,
             controller: SearchController.last,),
           customtextfield1: CustomTextFormField(
-            focusNode: focusNodes.last,
+            // focusNode: focusNodes.last,
+            focusNode:orderfocusNodes.last ,
             keyboardType: TextInputType.emailAddress,
             controller: OrderPriceController.last,
           ),
           customtextfield2: CustomTextFormField(
-            focusNode: focusNodes.last,
+            // focusNode: focusNodes.last,
+            focusNode:sharefocusNodes.last,
             keyboardType: TextInputType.emailAddress,
             controller: ShareValueController.last,
           ),
@@ -136,38 +142,30 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
           deleteOnTap: () => deleteCompany(AddmultipleCompanylist.length - 1)));
       SearchController.add(TextEditingController());
       OrderPriceController.add(TextEditingController());
-
       ShareValueController.add(TextEditingController());
       focusNodes.add(FocusNode());
-      print("Add company.........");
+      searchfocusNodes.add(FocusNode());
+      orderfocusNodes.add(FocusNode());
+      sharefocusNodes.add(FocusNode());
+      print("Add company.........$AddmultipleCompanylist");
     });
   }
 
   Future<void> SelectedCompany1(int index, String SelectedExchangevalue) async {
     String selectedCompany = SearchController[0].text.trim();
-
     print("selected company#####$selectedCompany");
-
     setState(() {
       if (SelectedExchangevalue == 'NSE') {
         if (SelectedBuysellvalue == "BUY") {
-          // print("selectedexvalue!!!!!!!!!$selectedCompany");
           OrderPriceController[index].text =
               CompanyNSEvalue[selectedCompany]?.toString() ?? '0.0';
-          // print(
-          //     "changed CompanyNSEvalue orderpricevalue>>>>>>${OrderPriceController[index].text}");
         } else if (SelectedBuysellvalue == "SELL") {
           OrderPriceController[index].text = '0.0';
-          // print(
-          //     "changed CompanyNSEvalue orderpricevalue>>>>>>${OrderPriceController[index].text}");
         }
       } else if (SelectedExchangevalue == 'BSE') {
-        if (SelectedBuysellvalue == "BUY") {
-          // print("selectedexvalue!!!!!!!!!$selectedCompany");
+        if (SelectedBuysellvalue == "BUY") {     
           OrderPriceController[index].text =
-              CompanyBSEvalue[selectedCompany]?.toString() ?? '0.0';
-          // print(
-          //     "changed CompanyBSEvalue orderpricevalue>>>>>>>>>>>>${OrderPriceController[index].text}");
+              CompanyBSEvalue[selectedCompany]?.toString() ?? '0.0';       
         } else if (SelectedBuysellvalue == "SELL") {
           OrderPriceController[index].text = '0.0';
         }
@@ -183,15 +181,10 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
 
     List<TextEditingController> Ordervalue = OrderPriceController;
     List<TextEditingController> Sharevalue = ShareValueController;
-    // print("print Oredervalue>>>>>>$Ordervalue");
-    // print("print Sharevalue<<<<<<<<<<<$Sharevalue");
 
     List<double> MarginDeliveryList = [];
     List<double> MarginIntradayList = [];
-    // List<String> SelectedBuysellList = [];
-    // print("print MarginDeliveryList>>>>>>$MarginDeliveryList");
-    // print("print MarginDeliveryList!!!!!!!!!!!$MarginIntradayList");
-    // print("print SelectedBuysellList<<<<<<<<<<<$SelectedBuysellList");
+  
 
     double parseToDouble(String input) {
       String cleanedInput = input.replaceAll(RegExp(r'[^0-9.]'), '');
@@ -200,36 +193,23 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
 
     for (int i = 0; i < Ordervalue.length; i++) {
       double OrderPrice = parseToDouble(Ordervalue[i].text);
-      double ShareValue = parseToDouble(Sharevalue[i].text);
-      // print("print OrderPrice%%%%%%%%%%%$OrderPrice");
-      // print("print Sharevalue@@@@@@$Sharevalue");
+      double ShareValue = parseToDouble(Sharevalue[i].text);    
 
       double RoundDelivery = OrderPrice * ShareValue;
       MarginDelivery = double.parse(RoundDelivery.toStringAsFixed(2));
-      MarginDeliveryList.add(MarginDelivery);
-      // print("margindelivery,,,,,,,,,,$MarginDelivery");
-      // print("margindeliveryList,,,,,,,,,,$MarginDeliveryList");
-      // print("calculate margindelivery??????????$RoundDelivery");
+      MarginDeliveryList.add(MarginDelivery);    
 
       double RoundIntraday = OrderPrice * ShareValue * (20 / 100);
       MarginIntraday = double.parse(RoundIntraday.toStringAsFixed(2));
 
       MarginIntradayList.add(MarginIntraday);
-      // print(" marginintraday,,,,,,,,,,$MarginIntraday");
-      // print(" marginintradayList,,,,,,,,,,$MarginIntradayList");
-      // print("calculated marginintrada/////////$RoundIntraday");
-
-      // print("OrderPriceController[$i]: ${Ordervalue[i].text}");
-      // print("ShareValueController[$i]: ${Sharevalue[i].text}");
+     
     }
     double roundTotalDelivery= MarginDeliveryList.fold(0.0, (sum, Element) => sum + Element); 
     TotalMarginDelivery = double.parse(roundTotalDelivery.toStringAsFixed(2));
 
     double roundTotalIntraday= MarginIntradayList.fold(0.0, (sum, Element) => sum + Element);
-    TotalMarginIntraday = double.parse(roundTotalIntraday.toStringAsFixed(2));
-        
-    
-        
+    TotalMarginIntraday = double.parse(roundTotalIntraday.toStringAsFixed(2));   
         
     // print("Total Margin Delivery:::::::::::$TotalMarginDelivery");
     // print("Total Margin Intraday:::::::::::$TotalMarginIntraday");
@@ -245,18 +225,16 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
         OrderPriceController.removeAt(index);
         ShareValueController.removeAt(index);
         focusNodes.removeAt(index);
+        searchfocusNodes.removeAt(index);
+        orderfocusNodes.removeAt(index);
+        sharefocusNodes.removeAt(index);
       }
     });
   }
 
   @override
-  void dispose() {
- 
- 
-    
-    // for (var company in AddmultipleCompanylist) {
-    //   company.focusNode.dispose();
-    // }
+  void dispose() {  
+
     for (int i = 0; i < AddmultipleCompanylist.length; i++) {
       SearchController[i].dispose();
       OrderPriceController[i].dispose();
@@ -280,6 +258,7 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
               Navigator.pop(context);
             },
             icon: Icon(
+              size: 16,
               Icons.arrow_back_ios,
               color: AppColors.primaryColorDark1,
             )),
@@ -323,12 +302,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                         children: [
                           Text(
                             "Company1:",
-                            style: TextStyle(
-                              color: AppColors.primaryColorDark3,
-                              fontSize: 14,
-                              fontFamily: 'Sora',
-                              fontWeight: FontWeight.w400,
-                            ),
+                            // style:GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+                           
                           ),
                           IconButton(
                               onPressed: () {
@@ -354,13 +329,15 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                           children: [
                             CustomTextFormField(
                                       keyboardType: TextInputType.emailAddress,
+                                      // focusNode: searchfocusNodes[index],
                                       focusNode: FocusNode(),
-                                      controller: SearchController[index],
+                                      controller: SearchController[index],                                   
                                       icon: Icons.search,
                                       errorMessage: 'Company Not Found',
                                       onClick: (){
-                                        setState(() {
+                                        setState(() {                                         
                                           visiblelist = true;
+                                        
                                         });
                                       },
                                       onchange: (value) {
@@ -369,8 +346,11 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                           SelectedCompany1(index,
                                               SelectedExchangevalue ?? '0.0');
                                           CalculateOrder();
+                                          
+                                          print("${SearchController[index].text}");
                                         });
                                          setState(() {
+                                             SearchController[index].text==FilteredCompaniesList[index];
                                           visiblelist = true;
                                         });
                                       },
@@ -382,10 +362,12 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                       itemCount: FilteredCompaniesList.length,
                                       itemBuilder: (BuildContext context,int index){
                                         return ListTile(
-                                          title: Text(FilteredCompaniesList[index]),
+                                          title: Text(FilteredCompaniesList[index],
+                                          // style: GoogleFonts.sora(
+                                          //   fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+                                            ),
                                           onTap: (){
-                                            SearchController[0].text=FilteredCompaniesList[index];
-                                            
+                                            SearchController[0].text=FilteredCompaniesList[index];                                            
                                             print("Selected company:${FilteredCompaniesList[index]}");
                                             setState(() {
                                               visiblelist = false; 
@@ -435,11 +417,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                             children: [
                               Text(
                                 "BUY/SELL:",
-                                style: TextStyle(
-                                    color: AppColors.primaryColorDark3,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14),
+                                // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark3, ),
+                             
                               ),
                               Container(
                                 width: 150,
@@ -452,6 +431,7 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                     decoration: InputDecoration(
                                         border: InputBorder.none),
                                     value: SelectedBuysellvalue,
+                                    // focusNode: selectbuy_sellfocusNodes[index],
                                     focusNode: FocusNode(),
                                     items: ['BUY', 'SELL']
                                         .map((String buysell_list) {
@@ -460,12 +440,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                           child: Center(
                                             child: Text(
                                               buysell_list,
-                                              style: TextStyle(
-                                                  color: AppColors
-                                                      .primaryColorDark1,
-                                                  fontFamily: 'Sora',
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 14),
+                                              // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark1, ),
+                                              
                                             ),
                                           ));
                                     }).toList(),
@@ -486,11 +462,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                             children: [
                               Text(
                                 "Exchange:",
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.primaryColorDark3,
-                                    fontSize: 14),
+                                                            //  style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark3, ),
+
                               ),
                               Container(
                                 width: 150,
@@ -503,6 +476,7 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                     alignment: AlignmentDirectional.center,
                                     decoration: InputDecoration(
                                         border: InputBorder.none),
+                                    // focusNode: selectBSE_NSEvalue[index],
                                     focusNode: FocusNode(),
                                     value: SelectedExchangevalue,
                                     items: ['NSE', 'BSE']
@@ -513,12 +487,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                           value: exchange_list,
                                           child: Text(
                                             exchange_list,
-                                            style: TextStyle(
-                                                fontFamily: 'Sora',
-                                                fontWeight: FontWeight.w400,
-                                                color:
-                                                    AppColors.primaryColorDark1,
-                                                fontSize: 14),
+                                                                          //  style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark1, ),
+
                                           ));
                                     }).toList(),
                                     onChanged: (newvalue2) {
@@ -546,11 +516,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                             children: [
                               Text(
                                 "Order Price:",
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.primaryColorDark3,
-                                    fontSize: 14),
+                                                              //  style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark3, ),
+
                               ),
                               Container(
                                 width: 150,
@@ -564,6 +531,7 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                   autofocus: true,
                                   keyboardType: TextInputType.number,
                                   focusNode: FocusNode(),
+                                  // focusNode: orderfocusNodes[index],
                                   controller: OrderPriceController[index],
                                   icon: Icons.currency_rupee,
                                   errorMessage: 'Order Price',
@@ -583,11 +551,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                             children: [
                               Text(
                                 "Share:",
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.primaryColorDark3,
-                                    fontSize: 14),
+                                // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark3, ),
+                              
                               ),
                               Container(
                                 width: 150,
@@ -599,6 +564,7 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                 child: CustomTextFormField(
                                   // autofocus: true,
                                   keyboardType: TextInputType.number,
+                                  // focusNode: selectbuy_sellfocusNodes[index],
                                   focusNode: FocusNode(),
                                   controller: ShareValueController[index],
                                   errorMessage: 'Invalid value Share',
@@ -628,11 +594,12 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                             children: [
                               Text(
                                 "MARGIN FOR DELIVERY:",
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.primaryColorDark3,
-                                    fontSize: 14),
+                                // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w600,color: AppColors.primaryColorDark2, ),
+                                // TextStyle(
+                                //     fontFamily: 'Sora',
+                                //     fontWeight: FontWeight.w400,
+                                //     color: AppColors.primaryColorDark3,
+                                //     fontSize: 14),
                               ),
                               Container(
                                 width: 170,
@@ -645,11 +612,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                 child: Center(
                                     child: Text(
                                   "$MarginDelivery",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, ),
+                                
                                 )),
                                 // child: Text(
                                 //     SelectedBuysellList == "SELL"
@@ -661,9 +625,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                               ),
                               Text(
                                 "MARGIN FOR INTRADAY:",
-                                style: TextStyle(
-                                    color: AppColors.primaryColorDark3,
-                                    fontSize: 14),
+                                // style: GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400 ,color: AppColors.primaryColorDark3,),
+                             
                               ),
                               Container(
                                 width: 170,
@@ -728,11 +691,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                   child: Center(
                                       child: Text(
                                     "$TotalMarginIntraday",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'Sora',
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    // style:GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark3, ),
+                                    
                                   ))),
                             ],
                           ),
@@ -760,11 +720,8 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                                   },
                                   child: Text(
                                     "Calculate",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'Sora',
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    // style:GoogleFonts.sora(fontSize:16,fontWeight: FontWeight.w600 ),
+                                   
                                   ))),
                           Container(
                             width: 150,

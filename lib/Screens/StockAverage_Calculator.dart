@@ -398,6 +398,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/common_text.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
@@ -520,12 +521,11 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                               children: [
                                 Text(
                                   "Buy Price",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.primaryColorDark1,
-                                  ),
+                                  // style: GoogleFonts.sora(
+                                  //   fontSize: 14,
+                                  //   fontWeight: FontWeight.w400,
+                                  //   color: AppColors.primaryColorDark1,
+                                  // ),
                                 ),
                                 Container(
                                   width: 150,
@@ -533,7 +533,9 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                                     border: Border(
                                         top: BorderSide.none,
                                         right: BorderSide.none,
-                                        bottom: BorderSide(color: AppColors.primaryColorLight3,width: 2),
+                                        bottom: BorderSide(
+                                            color: AppColors.primaryColorLight3,
+                                            width: 2),
                                         left: BorderSide.none),
                                     // border: Border.all(
                                     //     color: AppColors.primaryColorLight3),
@@ -557,12 +559,11 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                               children: [
                                 Text(
                                   "Quantity",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.primaryColorDark1,
-                                  ),
+                                  // style: GoogleFonts.sora(
+                                  //   fontSize: 14,
+                                  //   fontWeight: FontWeight.w400,
+                                  //   color: AppColors.primaryColorDark1,
+                                  // ),
                                 ),
                                 Container(
                                   width: 150,
@@ -570,7 +571,9 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                                     border: Border(
                                         top: BorderSide.none,
                                         right: BorderSide.none,
-                                        bottom: BorderSide(color: AppColors.primaryColorLight3,width: 1.5),
+                                        bottom: BorderSide(
+                                            color: AppColors.primaryColorLight3,
+                                            width: 1.5),
                                         left: BorderSide.none),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -585,89 +588,87 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                                 ),
                               ],
                             ),
-                            
                           ],
                         ),
                         SizedBox(
-                  height: 10,
-                ),
-                          Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Buy Price",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.primaryColorDark1,
-                              ),
-                            ),
-                            Container(
-                              width: 150,
-                              decoration: BoxDecoration(
-                                border: Border(
-                                    top: BorderSide.none,
-                                    right: BorderSide.none,
-                                    bottom: BorderSide(color: AppColors.primaryColorLight3,width: 1.5),
-                                    left: BorderSide.none),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: CustomTextFormField(
-                                autofocus: true,
-                                keyboardType: TextInputType.number,
-                                focusNode: focusNode3,
-                                controller: BuyPriceController2,
-                                // icon: Icons.currency_rupee,
-                                errorMessage: 'Buy Price',
-                              ),
-                            ),
-                          ],
+                          height: 10,
                         ),
-                       
-                        Column(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              "Quantity",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.primaryColorDark1,
-                              ),
+                            Column(
+                              children: [
+                                Text(
+                                  "Buy Price",
+                                  // style: GoogleFonts.sora(
+                                  //   fontSize: 14,
+                                  //   fontWeight: FontWeight.w400,
+                                  //   color: AppColors.primaryColorDark1,
+                                  // ),
+                                ),
+                                Container(
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        top: BorderSide.none,
+                                        right: BorderSide.none,
+                                        bottom: BorderSide(
+                                            color: AppColors.primaryColorLight3,
+                                            width: 1.5),
+                                        left: BorderSide.none),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: CustomTextFormField(
+                                    autofocus: true,
+                                    keyboardType: TextInputType.number,
+                                    focusNode: focusNode3,
+                                    controller: BuyPriceController2,
+                                    // icon: Icons.currency_rupee,
+                                    errorMessage: 'Buy Price',
+                                  ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              width: 150,
-                              decoration: BoxDecoration(
-                                 border: Border(
-                                    top: BorderSide.none,
-                                    right: BorderSide.none,
-                                    bottom: BorderSide(color: AppColors.primaryColorLight3,width: 1.5),
-                                    left: BorderSide.none),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: CustomTextFormField(
-                                autofocus: true,
-                                keyboardType: TextInputType.number,
-                                focusNode: focusNode4,
-                                controller: QuantiyController2,
-                                // icon: Icons.currency_rupee,
-                                errorMessage: 'Quantity',
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  "Quantity",
+                                  // style: GoogleFonts.sora(
+                                  //   fontSize: 14,
+                                  //   fontWeight: FontWeight.w400,
+                                  //   color: AppColors.primaryColorDark1,
+                                  // ),
+                                ),
+                                Container(
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        top: BorderSide.none,
+                                        right: BorderSide.none,
+                                        bottom: BorderSide(
+                                            color: AppColors.primaryColorLight3,
+                                            width: 1.5),
+                                        left: BorderSide.none),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: CustomTextFormField(
+                                    autofocus: true,
+                                    keyboardType: TextInputType.number,
+                                    focusNode: focusNode4,
+                                    controller: QuantiyController2,
+                                    // icon: Icons.currency_rupee,
+                                    errorMessage: 'Quantity',
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
                       ],
                     ),
                   ),
                 ),
-              
                 SizedBox(
                   height: 10,
                 ),
@@ -689,21 +690,19 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                           children: [
                             Text(
                               'Total Share',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.primaryColorDark1,
-                              ),
+                              // style: GoogleFonts.sora(
+                              //   fontSize: 14,
+                              //   fontWeight: FontWeight.w400,
+                              //   color: AppColors.primaryColorDark1,
+                              // ),
                             ),
                             Text(
                               '${(TotalQuantity ?? 0.0).toStringAsFixed(0)}  ₹',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.primaryColorDark1,
-                              ),
+                              // style: GoogleFonts.sora(
+                              //   fontSize: 14,
+                              //   fontWeight: FontWeight.w400,
+                              //   color: AppColors.primaryColorDark1,
+                              // ),
                             ),
                           ],
                         ),
@@ -712,21 +711,19 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                           children: [
                             Text(
                               'Total Amount',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.primaryColorDark1,
-                              ),
+                              // style: GoogleFonts.sora(
+                              //   fontSize: 14,
+                              //   fontWeight: FontWeight.w400,
+                              //   color: AppColors.primaryColorDark1,
+                              // ),
                             ),
                             Text(
                               '${(roundTotalAmount ?? 0.0).toStringAsFixed(0)} ₹',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.primaryColorDark1,
-                              ),
+                              // style: GoogleFonts.sora(
+                              //   fontSize: 14,
+                              //   fontWeight: FontWeight.w400,
+                              //   color: AppColors.primaryColorDark1,
+                              // ),
                             ),
                           ],
                         ),
@@ -735,21 +732,19 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                           children: [
                             Text(
                               'Average Price',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.primaryColorDark1,
-                              ),
+                              // style: GoogleFonts.sora(
+                              //   fontSize: 14,
+                              //   fontWeight: FontWeight.w400,
+                              //   color: AppColors.primaryColorDark1,
+                              // ),
                             ),
                             Text(
                               '${(roundAveragePrice ?? 0.0).toStringAsFixed(0)} ₹',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.primaryColorDark1,
-                              ),
+                              // style: GoogleFonts.sora(
+                              //   fontSize: 14,
+                              //   fontWeight: FontWeight.w400,
+                              //   color: AppColors.primaryColorDark1,
+                              // ),
                             ),
                           ],
                         ),
@@ -777,12 +772,11 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                             },
                             child: Text(
                               "Calculate",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.primaryColorDark1,
-                              ),
+                              // style: GoogleFonts.sora(
+                              //   fontSize: 14,
+                              //   fontWeight: FontWeight.w400,
+                              //   color: AppColors.primaryColorDark1,
+                              // ),
                             ))),
                     Container(
                       width: 150,

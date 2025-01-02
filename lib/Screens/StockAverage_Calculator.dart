@@ -397,6 +397,7 @@
 //         ));
 //   }
 // }
+
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';

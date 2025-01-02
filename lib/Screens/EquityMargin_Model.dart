@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:stock_average_calculator/Utils/custom_textformfield.dart';
 
 
@@ -27,3 +28,21 @@ class NewCompanyModel {
 
   
 }
+
+// class NewCompanyModel {
+//   CustomTextFormField customtextseach;
+//   CustomTextFormField customtextfield1;
+//   CustomTextFormField customtextfield2;
+//   String MarginDelivery;
+//   String MarginIntraday;
+//   VoidCallback deleteOnTap;
+
+//   NewCompanyModel({
+//     required this.customtextseach,
+//     required this.customtextfield1,
+//     required this.customtextfield2,
+//     required this.MarginDelivery,
+//     required this.MarginIntraday,
+//     required this.deleteOnTap,
+//   });
+// }

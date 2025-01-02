@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/common_text.dart';
@@ -172,11 +173,12 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
-                size: 16,
-                Icons.arrow_back_ios,
-                color: AppColors.primaryColorDark1,
-              )),
+               icon: HugeIcon(
+              icon: HugeIcons.strokeRoundedArrowLeft01,
+              color: AppColors.primaryColorDark1,
+              size: 22,
+            )
+              ),
           backgroundColor: AppColors.primaryBackgroundColor,
         ),
         body: SingleChildScrollView(

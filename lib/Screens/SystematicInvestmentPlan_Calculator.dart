@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:stock_average_calculator/Utils/app_color_const.dart';
 import 'package:stock_average_calculator/Utils/common_text.dart';
@@ -157,11 +158,12 @@ class _SystemeticInvestmentState extends State<SystemeticInvestment> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              size: 16,
+             icon: HugeIcon(
+              icon: HugeIcons.strokeRoundedArrowLeft01,
               color: AppColors.primaryColorDark1,
-            )),
+              size: 22,
+            )
+            ),
         title: CommonText(
           text: "SPI Calculator",
           fontSize: 22,

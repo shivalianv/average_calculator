@@ -1057,16 +1057,13 @@ class _MarginCalculatorState extends State<MarginCalculator> {
 
   @override
   void initState() {
-    // List<String> FilteredCompaniesList =
-    //     [...CompanyBSEvalue.keys, ...CompanyNSEvalue.keys].toSet().toList();
-    // List<String> FilteredCompaniesList2 =
-    //     [...CompanyBSEvalue2.keys, ...CompanyNSEvalue2.keys].toSet().toList();
+    
     FilteredCompaniesList = companies;
     FilteredCompaniesList2 = companies2;
+
     SearchController.addListener(printSelectedcompany);
     calculateOrder();
-
-    ShareValueController2.addListener(calculateOrder);
+    ShareValueController.addListener(calculateOrder);
     SearchController2.addListener(printSelectedcompany);
     calculateOrder();
     ShareValueController2.addListener(calculateOrder);
@@ -1282,13 +1279,7 @@ class _MarginCalculatorState extends State<MarginCalculator> {
     focusNode2.dispose();
     focusNode3.dispose();
     focusNode4.dispose();
-    OrderPriceController.dispose();
-    ShareValueController.dispose();
-    SearchController.dispose();
 
-    OrderPriceController2.dispose();
-    ShareValueController2.dispose();
-    SearchController2.dispose();
     super.dispose();
   }
 
@@ -1403,9 +1394,9 @@ class _MarginCalculatorState extends State<MarginCalculator> {
                                 fontSize: 14),
                           ),
                           onTap: () {
-                            setState(() {
+                            if (mounted) {setState(() {
                               filterCompanies(SearchController.text);
-                            });
+                            });}
                           },
                         ),
                       ),
@@ -1666,7 +1657,7 @@ class _MarginCalculatorState extends State<MarginCalculator> {
               SizedBox(
                 height: 10,
               ),
-              //company2
+              // company2
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.primaryColorLight2),
@@ -1705,9 +1696,9 @@ class _MarginCalculatorState extends State<MarginCalculator> {
                             // ),
                           ),
                           onTap: () {
-                            setState(() {
-                              // filterCompanies2(SearchController2.text);
-                            });
+                           if (mounted) { setState(() {
+                              filterCompanies2(SearchController2.text);
+                            });}
                           },
                         ),
                       ),

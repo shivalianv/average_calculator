@@ -215,7 +215,7 @@ class _MutualFundReturnState extends State<MutualFundReturn> {
                                         radius: 30,
                                         value: item['value'],
                                         color: item['color'],
-                                        // showTitle: false,
+                                        showTitle: false,
                                         // titleStyle:
                                         //  GoogleFonts.sora(fontSize:14,fontWeight: FontWeight.w400,color: AppColors.primaryColorDark2, )
                                          );

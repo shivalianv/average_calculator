@@ -697,7 +697,7 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                               // ),
                             ),
                             Text(
-                              '${(TotalQuantity ?? 0.0).toStringAsFixed(0)}  ₹',
+                              '${(TotalQuantity).toStringAsFixed(0)}  ₹',
                               // style: GoogleFonts.sora(
                               //   fontSize: 14,
                               //   fontWeight: FontWeight.w400,
@@ -718,7 +718,7 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                               // ),
                             ),
                             Text(
-                              '${(roundTotalAmount ?? 0.0).toStringAsFixed(0)} ₹',
+                              '${(roundTotalAmount).toStringAsFixed(0)} ₹',
                               // style: GoogleFonts.sora(
                               //   fontSize: 14,
                               //   fontWeight: FontWeight.w400,
@@ -739,7 +739,7 @@ class _StockAverageCalculatorState extends State<StockAverageCalculator> {
                               // ),
                             ),
                             Text(
-                              '${(roundAveragePrice ?? 0.0).toStringAsFixed(0)} ₹',
+                              '${(roundAveragePrice).toStringAsFixed(0)} ₹',
                               // style: GoogleFonts.sora(
                               //   fontSize: 14,
                               //   fontWeight: FontWeight.w400,

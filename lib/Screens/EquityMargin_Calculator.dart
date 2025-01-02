@@ -278,7 +278,7 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
           shrinkWrap: true,
           itemCount: AddmultipleCompanylist.length,
           itemBuilder: (context, index) {
-            NewCompanyModel newcompanyadd = AddmultipleCompanylist[index];
+            // NewCompanyModel newcompanyadd = AddmultipleCompanylist[index];
             List<String> FilteredCompaniesList = [
               ...CompanyBSEvalue.keys,
               ...CompanyNSEvalue.keys
@@ -653,11 +653,11 @@ class _EquityMargincalculatorState extends State<EquityMargincalculator> {
                             children: [
                               Text(
                                 "Total",
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.primaryColorDark3,
-                                    fontSize: 14),
+                                // style: TextStyle(
+                                //     fontFamily: 'Sora',
+                                //     fontWeight: FontWeight.w400,
+                                //     color: AppColors.primaryColorDark3,
+                                //     fontSize: 14),
                               ),
                               Container(
                                 width: 130,
